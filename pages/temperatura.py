@@ -137,14 +137,14 @@ def main():
 
      with col_mapa:
                 figura_mapa = graficos.grafico_mapa(df_mapa, 'diferencia', 'ISO', "world", "Mapa Cromatico - Variacion Temperatura Pais", "Diferencia temperatura", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
-                st.plotly_chart(figura_mapa)
+                st.plotly_chart(figura_mapa,  use_container_width=True)
 
 
      with col_grafico:
                 #st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
                     figura2 = graficos.grafico_linea_temperatura(tabla_g, mean_siglo_XX, 'Anio', 'temperatura', "Promedio de temperatura en Latinoamerica", 'Año', 'Temperatura Promedio (°C)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf, color_dibujo_graf_secundario)
-                    st.plotly_chart(figura2)
+                    st.plotly_chart(figura2,  use_container_width=True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
             
@@ -158,7 +158,7 @@ def main():
             try:
                       
                 figura_top = graficos.grafico_temp_linea_comparativo(t_3_1, t_3_2, t_3_3)
-                st.plotly_chart(figura_top)
+                st.plotly_chart(figura_top,  use_container_width=True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
@@ -167,7 +167,7 @@ def main():
             try:
                            
                 figura_barra = graficos.grafico_temp_barra(tabla_g4, 'Pais', 'diferencia')
-                st.plotly_chart(figura_barra)
+                st.plotly_chart(figura_barra,  use_container_width=True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
 
