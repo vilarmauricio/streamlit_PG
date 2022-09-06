@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 tamaño_fuente_graficos = 18
 
 
-def grafico_mapa(df, nombre_columna_color, columna_locacion, region, titulo, nombre_escala, nombre_locacion, color_escala, color_text, color_marco, color_fondo,color_titulo):
+def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_escala, nombre_locacion, color_escala, color_text, color_marco, color_fondo,color_titulo):
             fig = px.choropleth(
                     locations= df[columna_locacion], 
                     locationmode="ISO-3", 
@@ -24,7 +24,7 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, titulo, nom
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
             fig.update_layout(
-                    title_text = titulo,
+                    
                     showlegend = False,
                     geo = dict(
                         scope= region,
@@ -43,11 +43,11 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, titulo, nom
                                 size=tamaño_fuente_graficos,
                                 #color="#ffffff"
                                 ),
-                    width=600,
+                    #width=600,
                     )
 
             fig.update_layout(
-                    height=500, 
+                    #height=500, 
                     margin={"r":0,"t":50,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                     paper_bgcolor=color_marco,
                     plot_bgcolor=color_fondo,
@@ -59,7 +59,7 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, titulo, nom
 
 
 # Grafico de lineas
-def grafico_linea(df, nombre_columna_x, nombre_columna_y, titulo, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
+def grafico_linea(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
         fig = go.Figure()
         fig.add_trace(go.Scatter(
                     x= df[nombre_columna_x],
@@ -73,9 +73,9 @@ def grafico_linea(df, nombre_columna_x, nombre_columna_y, titulo, nombre_eje_x, 
                         plot_bgcolor=color_fondo,
                         title_font_color=color_titulo,
                         font_color=color_text,
-                        width=600, 
+                        #width=600, 
                         #height=500,
-                        title= titulo,
+                        #title= titulo,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -92,15 +92,16 @@ def grafico_linea(df, nombre_columna_x, nombre_columna_y, titulo, nombre_eje_x, 
     
     
 # Grafico Barras
-def grafico_barras(df, nombre_columna_x, nombre_columna_y, titulo, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
+def grafico_barras(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=df[nombre_columna_x], y = df[nombre_columna_y], marker={'color':color_dibujo}))
-        fig.update_layout(title = titulo,
+        fig.update_layout(
+                        #title = titulo,
                     paper_bgcolor=color_marco,
                     plot_bgcolor= color_fondo,
                     title_font_color=color_titulo,
                     font_color=color_text,
-                    width=600,
+                    #width=600,
                     #height=500,
                     font=dict(
                                 #family="Courier New, monospace",
@@ -142,20 +143,21 @@ def indicador_kpi_temp(df, columna_dato, valor_referencia):
         return fig
 
 transp = 'rgba(0,0,0,0)' 
-def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_columna_y, titulo, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo, color_dibujo_sec):
+def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo, color_dibujo_sec):
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_sec, 'dash':'dash', 'width':4}, name = 'Media siglo XX'))
     fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = 1.5+df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_sec, 'dash':'dot', 'width':4}, name = 'Límite: + 1.5ºC'))
     fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_tabla[nombre_columna_y], mode='lines+markers', line={'color':color_dibujo, 'width':4}, name='Temp. ºC'))
     
-    fig.update_layout(title = titulo,
+    fig.update_layout(
+        #title = titulo,
         paper_bgcolor=color_marco,
         plot_bgcolor=color_fondo,
         title_font_color=color_titulo,
         font_color=color_text,
         #width=1000,
-        height=500,
+        #height=500,
         font=dict(
                   #family="Courier New, monospace",
                   size= tamaño_fuente_graficos,
@@ -175,7 +177,8 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
         fig.add_trace(go.Scatter(x = df2['Anio'], y = df2['temperatura'], mode='lines',         line={'color':color_dibujo_linea_comparativo, 'dash':'dot'}, name = 'Cuba'))
         fig.add_trace(go.Scatter(x = df1['Anio'], y = df1['temperatura'], mode='lines+markers', line={'color':color_dibujo_linea_comparativo},               name = 'Bahamas'))
         fig.add_trace(go.Scatter(x = df3['Anio'], y = df3['temperatura'], mode='lines',         line={'color':color_dibujo_linea_comparativo},               name = 'México'))
-        fig.update_layout(title = 'Países con más aumento de temperatura',
+        fig.update_layout(
+                        #title = 'Países con más aumento de temperatura',
                         paper_bgcolor= color_marco_graf_tem,
                         plot_bgcolor= color_fondo_graf_tem,
                         title_font_color= color_fuente_titulo_graf_tem,
@@ -197,7 +200,8 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
 def grafico_temp_barra(df, columna_x, columna_y):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=df[columna_x], y = df[columna_y], marker={'color':color_dibujo_graf_tem}))
-        fig.update_layout(title = 'Top Países con menos aumento de temperatura entre 1901 y 2021',
+        fig.update_layout(
+                        #title = 'Top Países con menos aumento de temperatura entre 1901 y 2021',
                         paper_bgcolor= color_marco_graf_tem,
                         plot_bgcolor= color_fondo_graf_tem,
                         title_font_color= color_fuente_titulo_graf_tem,
@@ -227,18 +231,18 @@ color_fuente_titulo_graf_acceso = "#E5233D"
 color_fuente_graf_acceso = "#E5233D"
 color_escala_mapa_acceso = "Reds"
 
-def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y, titulo):
+def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico, 
                        x = columna_x, 
                        y= columna_y, 
-                       title= titulo,
+                       #title= titulo,
                 )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_acceso,
                         plot_bgcolor= color_fondo_graf_acceso,
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
-                        width=600,
+                        #width=600,
                         #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
@@ -265,7 +269,7 @@ def grafico_barra_top_acceso(df, columna_x, columna_y, titulo, nombre_eje_x, nom
                         plot_bgcolor= color_fondo_graf_acceso,
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
-                        width=600,
+                        #width=600,
                         #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
@@ -282,12 +286,12 @@ def grafico_barra_top_acceso(df, columna_x, columna_y, titulo, nombre_eje_x, nom
         return fig
 
 
-def grafico_linea_comparativo_acceso(df_grafico, columna_x, columna_y, color_categ, titulo, nombre_eje_x, nombre_eje_y):
+def grafico_linea_comparativo_acceso(df_grafico, columna_x, columna_y, color_categ, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico,
                         x= columna_x, 
                         y= columna_y,
                         color= color_categ,
-                        title= titulo,
+                        #title= titulo,
                         )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_acceso,
@@ -295,7 +299,7 @@ def grafico_linea_comparativo_acceso(df_grafico, columna_x, columna_y, color_cat
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
                         #width=600,
-                        height=500,
+                        #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -319,7 +323,7 @@ def grafico_linea_comparativo_acceso(df_grafico, columna_x, columna_y, color_cat
 
 
 
-def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, titulo, nombre_escala, nombre_locacion ):
+def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion ):
         fig = px.choropleth(
                     locations= df[columna_locacion], 
                     locationmode="ISO-3", 
@@ -333,8 +337,8 @@ def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, titulo, nomb
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
         fig.update_layout(
-        title_text = titulo,
-        showlegend = False,
+                #title_text = titulo,
+                showlegend = False,
         geo = dict(
                 scope='world',
                 resolution=110,
@@ -352,8 +356,8 @@ def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, titulo, nomb
                         plot_bgcolor= color_fondo_graf_acceso,
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
-                        width=600,
-                        height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        #width=600,
+                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -377,18 +381,18 @@ color_fuente_titulo_graf_renovables = "rgb(192,142, 46)"
 color_fuente_graf_renovables = "rgb(192,142, 46)"
 color_escala_mapa_renovables = "BrBg"
 
-def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y, titulo):
+def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico, 
                        x = columna_x, 
                        y= columna_y, 
-                       title= titulo,
+                       #title= titulo,
                 )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_renovables,
                         plot_bgcolor= color_fondo_graf_renovables,
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
-                        width=600,
+                        #width=600,
                         #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
@@ -415,7 +419,7 @@ def grafico_barra_top_renovables(df, columna_x, columna_y, titulo, nombre_eje_x,
                         plot_bgcolor= color_fondo_graf_renovables,
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
-                        width=600,
+                        #width=600,
                         #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
@@ -432,12 +436,12 @@ def grafico_barra_top_renovables(df, columna_x, columna_y, titulo, nombre_eje_x,
         return fig
 
 
-def grafico_linea_comparativo_renovables(df_grafico, columna_x, columna_y, color_categ, titulo, nombre_eje_x, nombre_eje_y):
+def grafico_linea_comparativo_renovables(df_grafico, columna_x, columna_y, color_categ, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico,
                         x= columna_x, 
                         y= columna_y,
                         color= color_categ,
-                        title= titulo,
+                        #title= titulo,
                         )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_renovables,
@@ -445,7 +449,7 @@ def grafico_linea_comparativo_renovables(df_grafico, columna_x, columna_y, color
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
                         #width=600,
-                        height=500,
+                        #height=500,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -469,7 +473,7 @@ def grafico_linea_comparativo_renovables(df_grafico, columna_x, columna_y, color
 
 
 
-def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, titulo, nombre_escala, nombre_locacion ):
+def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion ):
         fig = px.choropleth(
                     locations= df[columna_locacion], 
                     locationmode="ISO-3", 
@@ -483,27 +487,27 @@ def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, titulo, 
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
         fig.update_layout(
-        title_text = titulo,
-        showlegend = False,
-        geo = dict(
-                scope='world',
-                resolution=110,
-                projection_type='miller',
-                showcoastlines=True,
-                showocean=True,
-                showcountries=True,
-                oceancolor='#eaeaea',
-                lakecolor='#eaeaea',
-                coastlinecolor='#dadada',
-                fitbounds="locations"),
+                        #title_text = titulo,
+                        showlegend = False,
+                geo = dict(
+                        scope='world',
+                        resolution=110,
+                        projection_type='miller',
+                        showcoastlines=True,
+                        showocean=True,
+                        showcountries=True,
+                        oceancolor='#eaeaea',
+                        lakecolor='#eaeaea',
+                        coastlinecolor='#dadada',
+                        fitbounds="locations"),
                 )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_renovables,
                         plot_bgcolor= color_fondo_graf_renovables,
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
-                        width=600,
-                        height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        #width=600,
+                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,

@@ -41,6 +41,11 @@
         color: rgb(243, 108, 37);
         
     }
+    h3 {
+      font-size: xx-large;
+      color: rgb(243, 108, 37);
+      
+    }
     div[data-testid="stVerticalBlock"]{
       text-align: center;
 

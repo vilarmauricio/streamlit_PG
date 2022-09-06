@@ -84,17 +84,17 @@ def main():
      col_graf_1, col_graf_2 = st.columns(2)
 
      with col_graf_1:
-               st.header("GRAFICO 1")
+               st.subheader("GRAFICO 1")
                #figura_mapa = graficos.grafico_mapa(df_mapa, 'diferencia', 'ISO', "world", "Mapa Cromatico - Variacion Temperatura Pais", "Diferencia temperatura", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
-               #st.plotly_chart(figura_mapa)
+               #st.plotly_chart(figura_mapa, use_container_width= True)
 
 
      with col_graf_2:
                 #st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
-                    st.header("GRAFICO 2")
+                    st.subheader("GRAFICO 2")
                     #figura2 = graficos.grafico_linea_temperatura(tabla_g, mean_siglo_XX, 'Anio', 'temperatura', "Promedio de temperatura en Latinoamerica", 'Año', 'Temperatura Promedio (°C)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf, color_dibujo_graf_secundario)
-                    #st.plotly_chart(figura2)
+                    #st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
             
@@ -107,18 +107,18 @@ def main():
      with col_graf_3:
             
             try:
-               st.header("GRAFICO 3")
+               st.subheader("GRAFICO 3")
                #figura_top = graficos.grafico_temp_linea_comparativo(t_3_1, t_3_2, t_3_3)
-               #st.plotly_chart(figura_top)
+               #st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
      with col_graf_4:
            
             try:
-               st.header("GRAFICO 4")           
+               st.subheader("GRAFICO 4")           
                #figura_barra = graficos.grafico_temp_barra(tabla_g4, 'Pais', 'diferencia')
-               #st.plotly_chart(figura_barra)
+               #st.plotly_chart(figura_barra, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
 

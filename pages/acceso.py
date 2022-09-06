@@ -124,19 +124,17 @@ def main():
    col_graf_1, col_graf_2 = st.columns(2)
 
    with col_graf_1:
-               #st.header("GRAFICO 1")
-               figura_mapa = graficos.grafico_mapa_acceso(df20, 'promedio', 'ISO', 'Proporción de la población ccon acceso a servicios energéticos asequibles, fiables y modernos en Latinoamerica',
-                                                "Proporción", "Pais")
-               st.plotly_chart(figura_mapa)
+               st.subheader('Proporción de la población ccon acceso a servicios energéticos asequibles, fiables y modernos en Latinoamerica')
+               figura_mapa = graficos.grafico_mapa_acceso(df20, 'promedio', 'ISO', "Proporción", "Pais")
+               st.plotly_chart(figura_mapa, use_container_width= True)
 
 
    with col_graf_2:
                 #st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
-                    #st.header("GRAFICO 2")
-                    figura2 = graficos.grafico_linea_latinoamerica_acceso(tabla_g20, 'Anio', 'promedio', 'Año', 'Promedio','Proporción de la población de Latinoamerica con acceso a servicios energéticos asequibles, fiables y modernos',
-                                                                           )
-                    st.plotly_chart(figura2)
+                    st.subheader('Proporción de la población de Latinoamerica con acceso a servicios energéticos asequibles, fiables y modernos')
+                    figura2 = graficos.grafico_linea_latinoamerica_acceso(tabla_g20, 'Anio', 'promedio', 'Año', 'Promedio')
+                    st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
             
@@ -149,22 +147,18 @@ def main():
    with col_graf_3:
             
             try:
-               #st.header("GRAFICO 3")
-               figura_top = graficos.grafico_linea_comparativo_acceso(tabla_g22, 'Anio', 'promedio', 'Pais', 
-                                                                     'Países con países con mayor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos',
-                                                                     'Anio', 'Promedio')
-               st.plotly_chart(figura_top)
+               st.subheader('Países con países con mayor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos')
+               figura_top = graficos.grafico_linea_comparativo_acceso(tabla_g22, 'Anio', 'promedio', 'Pais', 'Anio', 'Promedio')
+               st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
    with col_graf_4:
            
             try:
-               #st.header("GRAFICO 4")           
-               figura_down = graficos.grafico_linea_comparativo_acceso(tabla_g24, columna_x= 'Anio', columna_y= 'promedio', color_categ='Pais', 
-                                                                     titulo= 'Países con países con menor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos',
-                                                                     nombre_eje_x= 'Anio', nombre_eje_y= 'Promedio')
-               st.plotly_chart(figura_down)
+               st.subheader('Países con países con menor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos')           
+               figura_down = graficos.grafico_linea_comparativo_acceso(tabla_g24, columna_x= 'Anio', columna_y= 'promedio', color_categ='Pais', nombre_eje_x= 'Anio', nombre_eje_y= 'Promedio')
+               st.plotly_chart(figura_down, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
 

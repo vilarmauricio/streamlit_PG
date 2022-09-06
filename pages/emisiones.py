@@ -134,15 +134,15 @@ def main():
             #  st.plotly_chart(figura_mapa)
 
             #with tab_mundo:
-                #st.subheader('Mapa Emisiones CO2 - Latinoamerica')
-                figura_mapa = graficos.grafico_mapa(df_ultima_observacion, 'Emisiones_de_CO2', "ISO","world", "Mapa Cromatico - EmisionesCO2/Pais", "CO2", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
+                st.subheader('Mapa Emisiones CO2 - Latinoamerica')
+                figura_mapa = graficos.grafico_mapa(df_ultima_observacion, 'Emisiones_de_CO2', "ISO","world", "CO2", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
                 st.plotly_chart(figura_mapa,  use_container_width=True)
 
 
         with col_grafico:
-                #st.subheader('Emisiones CO2 - Agrupacion Anual')
+                st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
-                    figura2 = graficos.grafico_linea(df_agrupacion_sum, 'Anio', 'Emisiones_de_CO2', "Emisiones CO2 Total", 'Año', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
+                    figura2 = graficos.grafico_linea(df_agrupacion_sum, 'Anio', 'Emisiones_de_CO2', 'Año', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
                     st.plotly_chart(figura2,  use_container_width=True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
@@ -154,22 +154,22 @@ def main():
 
         with col_top:
             
-            #st.subheader('Paises con Mayor Emision CO2')
+            st.subheader('Paises con Mayor Emision CO2')
             try:
                 opciones_mayor = st.slider('Seleccionar cantidad de Paises Top', 1, 10, 5)
                 df_top = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= False).head(opciones_mayor)
-                figura_top = graficos.grafico_barras(df_top, 'Pais', 'Emisiones_de_CO2', 'Paises con Mayor Emision CO2', 'Pais', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
+                figura_top = graficos.grafico_barras(df_top, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
                 st.plotly_chart(figura_top,  use_container_width=True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
         with col_down:
-            #st.subheader('Paises con Menor Emision CO2')
+            st.subheader('Paises con Menor Emision CO2')
             try:
                 opciones_menor = st.slider('Seleccionar cantidad de Paises', 1, 10, 5)
                 df_down = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= True).head(opciones_menor)   
             
-                figura_down = graficos.grafico_barras(df_down, 'Pais', 'Emisiones_de_CO2', 'Paises con Menor Emision CO2', 'Pais', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
+                figura_down = graficos.grafico_barras(df_down, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf)
                 st.plotly_chart(figura_down,  use_container_width=True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")

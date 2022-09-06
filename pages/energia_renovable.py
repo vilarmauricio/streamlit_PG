@@ -125,18 +125,17 @@ def main():
    col_graf_1, col_graf_2 = st.columns(2)
 
    with col_graf_1:
-               figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', '',
-                                                "Energia Limpias", "Pais")
-               st.plotly_chart(figura_mapa)
+                st.subheader('Mapa Cromatico Proporcion Energias Renovables')
+                figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', "Energia Limpias", "Pais")
+                st.plotly_chart(figura_mapa, use_container_width= True)
 
 
    with col_graf_2:
-                #st.subheader('Emisiones CO2 - Agrupacion Anual')
+                st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
                     
-                    figura2 = graficos.grafico_linea_latinoamerica_renovables(tabla_g30, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido',
-                                                                           'Años', 'Prop Energia Renovable', '')
-                    st.plotly_chart(figura2)
+                    figura2 = graficos.grafico_linea_latinoamerica_renovables(tabla_g30, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido','Años', 'Prop Energia Renovable')
+                    st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
             
@@ -149,22 +148,18 @@ def main():
    with col_graf_3:
             
             try:
-               #st.header("GRAFICO 3")
-               figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 
-                                                                     'Países con países con mayor proporción de de energía renovable en el consumo final total de energía',
-                                                                     'Anio', 'Prop. Energias Renovables')
-               st.plotly_chart(figura_top)
+               st.subheader('Países con países con mayor proporción de de energía renovable en el consumo final total de energía')
+               figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables')
+               st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
    with col_graf_4:
            
             try:
-               #st.header("GRAFICO 4")           
-               figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 
-                                                                     'Países con países con mayor proporción de de energía renovable en el consumo final total de energía',
-                                                                     'Anio', 'Prop. Energias Renovables')
-               st.plotly_chart(figura_top)
+               st.subheader('Países con países con mayor proporción de de energía renovable en el consumo final total de energía')           
+               figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables')
+               st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
 
