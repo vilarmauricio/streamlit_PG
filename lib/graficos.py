@@ -190,7 +190,7 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
                                 size= tamaño_fuente_graficos,
                                 #color="#ffffff"
                                 ),
-                        margin={"r":0,"t":0,"l":0,"b":0}
+                        margin={"r":0,"t":0,"l":0,"b":0},
                         title_x = 0.5,
                         )
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
