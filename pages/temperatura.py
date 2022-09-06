@@ -21,7 +21,7 @@ local_css("./styles/css_temperatura.css")
 
 #@st.cache
 def crear_dataframe(nombre_archivo):
-    df = pd.read_csv('./'+nombre_archivo)
+    df = pd.read_csv('./dataset/'+nombre_archivo)
     return df
 
 # Colores Graficos
