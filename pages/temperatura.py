@@ -1,0 +1,231 @@
+import streamlit as st
+import pandas as pd
+import datetime as dt
+import numpy as np
+import lib.graficos as graficos 
+import plotly.graph_objects as go
+
+st.set_page_config(
+     page_title="KPI Temperaturas",
+     page_icon="🌍",
+     layout="wide",
+     initial_sidebar_state= "collapsed",
+)
+
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
+
+local_css("./styles/css_temperatura.css")
+
+
+#@st.cache
+def crear_dataframe(nombre_archivo):
+    df = pd.read_csv('./'+nombre_archivo)
+    return df
+
+# Colores Graficos
+color_fuente_graf = 'rgb(252, 183, 20)'
+color_fuente_titulo_graf = 'rgb(252, 183, 20)'
+color_fondo_graf = '#EAEAEA'
+color_marco_graf = 'rgba(0,0,0,0)'
+color_dibujo_graf = '#FDC30C'
+color_dibujo_graf_secundario = '#A37C01'
+color_escala_mapa = 'solar_r'
+
+transp = 'rgba(0,0,0,0)' 
+
+
+def main():
+
+
+     df = crear_dataframe('Temperatures.csv')
+     df['Pais']= df['codigo'].map({'ATG':'Antigua y Barbuda','ARG':'Argentina','BHS':'Bahamas','BRB':'Barbados','BLZ':'Belice',
+                              'BOL':'Bolivia','BRA':'Brasil','CAN':'Canadá','CHL':'Chile','COL':'Colombia','CRI':'Costa Rica','CUB':'Cuba','DMA':'Dominica',
+                              'ECU':'Ecuador','USA':'Estados Unidos','SLV':'El Salvador','GTM':'Guatemala','GUY':'Guyana','HTI':'Haití','HND':'Honduras',
+                              'JAM':'Jamaica','MEX':'México','NIC':'Nicaragua','PAN':'Panamá','PRY':'Paraguay','PER':'Perú','DOM':'República Dominicana',
+                              'KNA':'San Cristóbal y Nieves','VCT':'San Vicente y las Granadinas','LCA':'Santa Lucía','SUR':'Surinam','TTO':'Trinidad y Tobago',
+                              'URY':'Uruguay','VEN':'Venezuela'})
+     df = df.rename(columns={'year':'Anio', 'codigo': 'ISO'})
+     tabla_g = df.groupby('Anio', as_index= False).mean()
+     tabla_g.reset_index(inplace=True)
+
+     mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
+     
+    # KPI y Metricas
+
+     media_siglo_XX = mean_siglo_XX
+     temperatura_limite = 1.5+mean_siglo_XX
+     
+     ultimo_anio = tabla_g.Anio.max()
+     media_actual = tabla_g[tabla_g['Anio'] == ultimo_anio ]['temperatura'].mean()
+        
+     kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
+
+     df2 = df[((df['Anio'])==1901)]
+     df3 = df[((df['Anio'])==2021)]
+     df4= pd.merge(df2,df3, on= ['Pais', 'ISO'])
+
+     df4['diferencia'] = df4['temperatura_y']-df4['temperatura_x']
+     tabla_g2 = df4.sort_values(by= 'diferencia', ascending= False).head(5)
+     tabla_g2.reset_index(inplace=True, drop=True)
+
+     tabla_g4 = df4.sort_values(by= 'diferencia', ascending= True).head(5)
+     tabla_g4.reset_index(inplace=True)
+
+    # Tablas para grafico de linea comparativo
+     lista_pais_mayor_aumento = tabla_g2.Pais.unique()
+     df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:3])]
+     t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
+     t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
+     t_3_3 = df5[df5['Pais'] == lista_pais_mayor_aumento[2]]
+
+     #tabla mapa cromatico
+     df_mapa = df4.sort_values(by= 'diferencia', ascending= False)
+
+
+     with st.sidebar:
+        st.button('Introduccion')
+        #st.button('Hoja 1')
+        #st.button('hoja 2')
+
+     #lista_paises = sorted(df.Pais.unique())
+     lista_paises_latinoamerica = sorted(df.Pais.unique())
+
+
+     # Seleccion paises
+     region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
+
+     if region == 'Latinoamerica':
+        seleccion_paises =  lista_paises_latinoamerica
+     #elif region == 'Toda America':
+        #seleccion_paises = lista_paises
+     elif region == 'Personalizado':
+        seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
+
+     st.image('./images/ComisionLat1.png')
+     st.image('./images/kpi2.png')
+
+
+     # card(title="Hello World!", text="Some description", image="http://placekitten.com/200/300")
+
+     #Contenedor
+     #with st.container():
+        #Columnas
+     col1, col2, col3 = st.columns(3)
+
+     with col1:
+            plot_bgcolor = "#def"              #verde claro, amarillo, naranja, rojo, verde oscuro
+            quadrant_colors = [plot_bgcolor, "#f25829",    "#f2a529", "#eff229","#85e043" ,"#2bad4e"]
+            quadrant_text = ["", "<b>Very high</b>", "<b>High</b>", "<b>Medium</b>", "<b>Low</b>", "<b>Very low</b>"]
+            n_quadrants = len(quadrant_colors) - 1
+
+            current_value = tabla_g['temperatura'].values[-1]
+            min_value = media_siglo_XX
+            max_value = temperatura_limite
+            hand_length = np.sqrt(2) / 4
+            hand_angle = np.pi * (1 - (max(min_value, min(max_value, current_value)) - min_value) / (max_value - min_value))
+
+            fig = go.Figure(
+                        data=[
+                            go.Pie(
+                            values=[0.5] + (np.ones(n_quadrants) / 2 / n_quadrants).tolist(),
+                            rotation=90,
+                            hole=0.5,
+                            marker_colors=quadrant_colors,
+                            # text = quadrant_text, aniade texto a los colores
+                            textinfo="text",
+                            hoverinfo="skip",
+                            ),
+                        ],
+            layout=go.Layout(
+                        showlegend=False,
+                        margin=dict(b=0,t=10,l=10,r=10),
+                        width=450,
+                        height=450,
+                        paper_bgcolor=plot_bgcolor,
+                        annotations=[
+                            go.layout.Annotation(
+                                    text=f"<b>Proporcion de Energias Renovables del Total Consumido:</b><br>{current_value} %",
+                                    x=0.5, xanchor="center", xref="paper",
+                                    y=0.25, yanchor="bottom", yref="paper",
+                                    showarrow=False,
+                            )
+                        ],
+            shapes=[
+                    go.layout.Shape(
+                            type="circle",
+                            x0=0.48, x1=0.52,
+                            y0=0.48, y1=0.52,
+                            fillcolor="#333",
+                            line_color="#333",
+                        ),
+                    go.layout.Shape(
+                            type="line",
+                            x0=0.5, x1=0.5 + hand_length * np.cos(hand_angle),
+                            y0=0.5, y1=0.5 + hand_length * np.sin(hand_angle),
+                            line=dict(color="#333", width=4)
+                        )
+                    ]
+            )
+        )
+            fig.show()
+            #indicador1 = graficos.indicador_kpi_temp(tabla_g, 'temperatura', temperatura_limite)
+            #indicador1.show()
+            #st.header("KPI's")
+            #st.title("+ " + str(round((media_actual - media_siglo_XX), 2))+"°C")
+            #st.progress(round(kpi_estado))
+            
+
+     with col2:
+            st.header("Temperatura Promedio Actual")
+
+            st.title(str(round(media_actual,2)) + "°C")
+            
+
+     with col3:
+            st.header("Temperatura Promedio Limite")
+            st.title(str(round(temperatura_limite,2)) + "°C")
+            
+        
+     col_mapa, col_grafico = st.columns(2)
+
+     with col_mapa:
+                figura_mapa = graficos.grafico_mapa(df_mapa, 'diferencia', 'ISO', "world", "Mapa Cromatico - Variacion Temperatura Pais", "Diferencia temperatura", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
+                st.plotly_chart(figura_mapa)
+
+
+     with col_grafico:
+                #st.subheader('Emisiones CO2 - Agrupacion Anual')
+                try:
+                    figura2 = graficos.grafico_linea_temperatura(tabla_g, mean_siglo_XX, 'Anio', 'temperatura', "Promedio de temperatura en Latinoamerica", 'Año', 'Temperatura Promedio (°C)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf, color_dibujo_graf_secundario)
+                    st.plotly_chart(figura2)
+                except ValueError:
+                    st.error("Seleccionar por lo menos 1 (uno) Pais")
+            
+        #st.sidebar.title('Configuracion Graficos de Barras')          
+        
+        
+     col_top, col_down = st.columns(2)
+
+     with col_top:
+            
+            try:
+                      
+                figura_top = graficos.grafico_temp_linea_comparativo(t_3_1, t_3_2, t_3_3)
+                st.plotly_chart(figura_top)
+            except ValueError:
+                st.error("Seleccionar por lo menos 1 (uno) Pais")
+        
+     with col_down:
+           
+            try:
+                           
+                figura_barra = graficos.grafico_temp_barra(tabla_g4, 'Pais', 'diferencia')
+                st.plotly_chart(figura_barra)
+            except ValueError:
+                st.error("Seleccionar por lo menos 1 (uno) Pais")
+
+
+if __name__ == '__main__':
+    main()
