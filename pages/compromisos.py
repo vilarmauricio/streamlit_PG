@@ -56,8 +56,17 @@ def main():
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
      '''
      #st.image('./images/ComisionLat1.png')
-     st.image('./images/kpi4b.png')
-
+     #st.image('./images/kpi4b.png')
+       # Titulo
+     col_logo, col_titulo = st.columns([1,6])
+     
+     with col_logo:
+         st.image('./images/kpi4b.png') 
+     with col_titulo:
+         st.title("El 80% de los países Latinoamericanos cumplan con sus compromisos de reducción de emisiones de CO2 para el año 2030")
+         #st.image('./images/kpi3.png')
+     # TARJETAS
+     col1, col2, col3 = st.columns(3)
 
      
      # TARJETAS
