@@ -605,6 +605,53 @@ color_fuente_titulo_graf_intensidad = "rgb(243, 108, 37)"
 color_fuente_graf_intensidad = "rgb(243, 108, 37)"
 color_escala_mapa_intensidad = "Reds" #ver color 
 
+def grafico_mapa_intensidad(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion ):
+        fig = px.choropleth(
+                    locations= df[columna_locacion], 
+                    locationmode="ISO-3", 
+                    scope="world",
+                    color= df[nombre_columna_color],
+                    color_continuous_scale= color_escala_mapa_intensidad,#"balance", #LE CAMBIÉ LA ESCALA DE COLORES DE BALANCE A VIRIDIS
+                    #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
+                    # ESCALAS DE COLORES    
+                    hover_name= df['Pais'],        
+                    labels={ "color": nombre_escala,"locations": nombre_locacion})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
+                    #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
+
+        fig.update_layout(
+                #title_text = titulo,
+                showlegend = False,
+        geo = dict(
+                scope='world',
+                resolution=110,
+                projection_type='miller',
+                showcoastlines=True,
+                showocean=True,
+                showcountries=True,
+                oceancolor='#eaeaea',
+                lakecolor='#eaeaea',
+                coastlinecolor='#dadada',
+                fitbounds="locations"),
+                )
+        fig.update_layout(
+                        paper_bgcolor= color_marco_graf_intensidad,
+                        plot_bgcolor= color_fondo_graf_intensidad,
+                        title_font_color= color_fuente_titulo_graf_intensidad,
+                        font_color= color_fuente_graf_intensidad,
+                        #width=600,
+                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size= tamaño_fuente_graficos,
+                                #color="#ffffff"
+                                ),
+                        title_x = 0.5,
+                        
+                        )
+
+        fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        return fig
+
 def grafico_linea_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje_y, arr_anios, val_2015, val_actual):
         
         fig = go.Figure()

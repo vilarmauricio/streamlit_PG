@@ -32,6 +32,7 @@ def main():
 
      
     tabla = crear_dataframe('./dataset/datos_ONU.csv')
+    df_paises = crear_dataframe('./dataset/Paises.csv')
     df = tabla[['Pais','Anio','intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI']].copy()
     df.rename(columns={'intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI':'Value'}, inplace=True)
     df = df.groupby('Anio').mean().reset_index()
@@ -80,6 +81,9 @@ def main():
     df_por_pais['Porcentaje_red'] = df_por_pais['Reducción'] / df_por_pais['Value_2015'] * 100
     df_por_pais['Porcentaje_cumplido'] = df_por_pais['Reducción'] / df_por_pais['Red_esperada'] * 100
 
+    df_por_pais = pd.merge(df_por_pais, df_paises[['Pais', 'ISO', 'Region']], on= 'Pais', how='left')
+    df_por_pais = df_por_pais[df_por_pais['Region'] != 'América del Norte']
+
     top_lejos = df_por_pais.sort_values('Porcentaje_cumplido').head().reset_index()
     top_cerca = df_por_pais.sort_values('Porcentaje_cumplido', ascending=False).head().reset_index()
 
@@ -119,10 +123,10 @@ def main():
     col_graf_1, col_graf_2 = st.columns(2)
 
     with col_graf_1:
-               st.subheader("GRAFICO 1")
+               st.subheader("Mapa Cromatico - Valor Intensidad Energetica Pais")
                
-               #figura_mapa = graficos.grafico_mapa(df_mapa, 'diferencia', 'ISO', "world", "Mapa Cromatico - Variacion Temperatura Pais", "Diferencia temperatura", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
-               #st.plotly_chart(figura_mapa, use_container_width= True)
+               figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "Intensidad Energetica", "Pais")
+               st.plotly_chart(figura_mapa, use_container_width= True)
 
 
     with col_graf_2:
