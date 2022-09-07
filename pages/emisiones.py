@@ -121,9 +121,11 @@ def main():
         col1, col2, col3 = st.columns((3,3,3))
 
         with col1:
-            st.header("Cumplimiento KPI's")
-            st.title(str(kpi_pct) + "%")
-            st.progress(kpi_pct)
+            st.plotly_chart(graficos.indicador_kpi_emisiones(emisiones_objetivo, suma_emisiones_inicial, suma_emisiones_actual, titulo= "Emisiones"), use_container_width= True)
+            
+            #st.header("Cumplimiento KPI's")
+            #st.title(str(kpi_pct) + "%")
+            #st.progress(kpi_pct)
             
 
         with col2:

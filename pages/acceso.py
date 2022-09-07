@@ -114,9 +114,10 @@ def main():
    col1, col2, col3 = st.columns(3)
 
    with col1:
-            st.header("Progreso KPI's")
+            st.plotly_chart(graficos.indicador_kpi_acceso(tabla_g20, 'promedio',95, "Promedio"), use_container_width= True)
+            #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
-            st.progress(round(promedio_ultimo_registro))
+            #st.progress(round(promedio_ultimo_registro))
             
 
    with col2:

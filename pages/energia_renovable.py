@@ -112,9 +112,10 @@ def main():
    col1, col2, col3 = st.columns(3)
 
    with col1:
-            st.header("Progreso KPI's")
+            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Energia renovable'), use_container_width= True)
+            #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
-            st.progress(round(promedio_ultimo_registro))
+            #st.progress(round(promedio_ultimo_registro))
             
 
    with col2:

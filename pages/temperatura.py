@@ -108,11 +108,11 @@ def main():
      col1, col2, col3 = st.columns(3)
 
      with col1:
-           
+            st.plotly_chart(graficos.indicador_kpi_acceso(mean_siglo_XX, temperatura_limite, media_actual, 'Temperatura'), use_container_width= True)
             
-            st.header("KPI's")
-            st.title("+ " + str(round((media_actual - media_siglo_XX), 2))+"°C")
-            st.progress(round(kpi_estado))
+            #st.header("KPI's")
+            #st.title("+ " + str(round((media_actual - media_siglo_XX), 2))+"°C")
+            #st.progress(round(kpi_estado))
             
 
      with col2:

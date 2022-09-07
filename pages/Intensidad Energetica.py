@@ -1,4 +1,5 @@
 
+from re import U
 import streamlit as st
 import pandas as pd
 import datetime as dt
@@ -102,10 +103,12 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-            st.header("KPI's")
-            st.title(str(round(objective_percent*100,2)) + " %")
+            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(ac_red,2), 'Porcentaje Intensidad' ), use_container_width= True)
+            
+            #st.header("KPI's")
+            #st.title(str(round(objective_percent*100,2)) + " %")
 
-            st.progress(objective_percent)
+            #st.progress(objective_percent)
             
 
     with col2:
