@@ -92,11 +92,15 @@ def main():
      elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
 
-     #st.image('./images/ComisionLat1.png')
-     st.image('./images/kpi2.png')
 
+    # Titulo
+     col_logo, col_titulo = st.columns([1,6])
+     
+     with col_logo:
+         st.image('./images/icon_temperatura.png') 
+     with col_titulo:
+         st.image('./images/kpi2.png')
 
-     # card(title="Hello World!", text="Some description", image="http://placekitten.com/200/300")
 
      #Contenedor
      #with st.container():

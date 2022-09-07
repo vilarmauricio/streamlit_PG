@@ -94,7 +94,7 @@ def main():
     col_logo, col_titulo = st.columns([1,6])
      
     with col_logo:
-         st.image('./images/pila2.png') 
+         st.image('./images/icon_intensidad.png') 
     with col_titulo:
          st.title('Disminuir a la mitad la Intencidad Energetica del año 2015 para el año 2030')
          #st.image('./images/kpi3.png')

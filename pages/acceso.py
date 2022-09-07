@@ -54,10 +54,9 @@ def main():
         #seleccion_paises = lista_paises
    elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
-     
-   #st.image('./images/ComisionLat1.png')
-   st.image('./images/kpi1.png')
 
+
+      
      # Hacemos los calculos
    df = df.drop(df[df['Pais']=='Canadá'].index)
    df['ISO']= df['Pais'].map({'Antigua y Barbuda':'ATG','Argentina':'ARG','Bahamas':'BHS','Barbados':'BRB','Belice':'BLZ',
@@ -98,6 +97,17 @@ def main():
    #kpi y Metrica actual
    anio_ultimo_registro = tabla_g20.Anio.max()
    promedio_ultimo_registro = tabla_g20[tabla_g20['Anio'] == anio_ultimo_registro].promedio.values[0]
+
+
+   # Titulo
+   col_logo, col_titulo = st.columns([1,6])
+     
+   with col_logo:
+         st.image('./images/icon_acceso.png') 
+   with col_titulo:
+         st.image('./images/kpi1.png')
+
+
 
 
      # TARJETAS

@@ -61,7 +61,7 @@ def main():
      col_logo, col_titulo = st.columns([1,6])
      
      with col_logo:
-         st.image('./images/kpi4b.png') 
+         st.image('./images/icon_cumplimiento.png') 
      with col_titulo:
          st.title("El 80% de los países Latinoamericanos cumplan con sus compromisos de reducción de emisiones de CO2 para el año 2030")
          #st.image('./images/kpi3.png')

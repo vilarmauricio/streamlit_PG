@@ -104,8 +104,15 @@ def main():
     df_agrupacion_promedio = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
 
-    #st.image('./images/ComisionLat1.png')
-    st.image('./images/kpi6_1.png')
+    
+    
+    # Titulo
+    col_logo, col_titulo = st.columns([1,6])
+     
+    with col_logo:
+         st.image('./images/icon_emisiones.png') 
+    with col_titulo:
+         st.image('./images/kpi6_1.png')
 
 
     #Contenedor
