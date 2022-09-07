@@ -54,6 +54,7 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_esca
                     title_font_color=color_titulo,
                     font_color=color_text,
                     title_x = 0.5,
+                    
             )
             return fig
 
@@ -68,7 +69,6 @@ def grafico_linea(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_e
                     ))
 
         fig.update_layout(
-                        margin=dict(l=20, r=20, t=50, b=20),
                         paper_bgcolor=color_marco,
                         plot_bgcolor=color_fondo,
                         title_font_color=color_titulo,
@@ -82,6 +82,7 @@ def grafico_linea(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_e
                                 #color="#ffffff",
                                 ),
                         title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
                            )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -109,6 +110,7 @@ def grafico_barras(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_
                                 #color="#ffffff"
                                 ),
                     title_x = 0.5,
+                    margin={"r":0,"t":0,"l":0,"b":0},
                     )
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)', title_text = nombre_eje_x)
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)', title_text = nombre_eje_y)
@@ -164,6 +166,7 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
                   #color="#ffffff"
                 ),
         title_x = 0.5,
+        margin={"r":0,"t":0,"l":0,"b":0},
         )
     
     fig.update_xaxes(showline=True, linewidth=3, linecolor='#FFFFFF',gridcolor='rgba(255,255,255,0.5)', title_text = nombre_eje_x)
@@ -191,6 +194,7 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
                         )
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
@@ -214,6 +218,7 @@ def grafico_temp_barra(df, columna_x, columna_y):
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
                         
                         )
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
@@ -250,7 +255,7 @@ def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
-                        margin={"r":0,"t":50,"l":0,"b":0},
+                        margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -259,11 +264,12 @@ def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_
         return fig
 
 
-def grafico_barra_top_acceso(df, columna_x, columna_y, titulo, nombre_eje_x, nombre_eje_y):
+def grafico_barra_top_acceso(df, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.bar(data_frame= df,
                         x= columna_x,
                         y = columna_y,
-                        title= titulo)
+                        #title= titulo,
+                        )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_acceso,
                         plot_bgcolor= color_fondo_graf_acceso,
@@ -277,7 +283,7 @@ def grafico_barra_top_acceso(df, columna_x, columna_y, titulo, nombre_eje_x, nom
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
-                        margin={"r":0,"t":50,"l":0,"b":0},
+                        margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -312,8 +318,9 @@ def grafico_linea_comparativo_acceso(df_grafico, columna_x, columna_y, color_cat
                                 y=1.12,
                                 xanchor="left",
                                 x=0.01
-                        )
-        )
+                        ),
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
@@ -400,7 +407,7 @@ def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nom
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
-                        margin={"r":0,"t":50,"l":0,"b":0},
+                        margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -409,11 +416,12 @@ def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nom
         return fig
 
 
-def grafico_barra_top_renovables(df, columna_x, columna_y, titulo, nombre_eje_x, nombre_eje_y):
+def grafico_barra_top_renovables(df, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.bar(data_frame= df,
                         x= columna_x,
                         y = columna_y,
-                        title= titulo)
+                        #title= titulo,
+                        )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_renovables,
                         plot_bgcolor= color_fondo_graf_renovables,
@@ -427,7 +435,7 @@ def grafico_barra_top_renovables(df, columna_x, columna_y, titulo, nombre_eje_x,
                                 #color="#ffffff"
                                 ),
                         title_x = 0.5,
-                        margin={"r":0,"t":50,"l":0,"b":0},
+                        margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -462,7 +470,8 @@ def grafico_linea_comparativo_renovables(df_grafico, columna_x, columna_y, color
                         y=1.12,
                         xanchor="left",
                         x=0.01
-                        )
+                        ),
+                        margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y)
@@ -518,4 +527,73 @@ def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, nombre_e
                         )
 
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        return fig
+
+
+# Intensidad Energetica
+
+# Colores Graficos
+
+color_marco_graf_intensidad = "#FFFFFF"
+color_fondo_graf_intensidad = '#EAEAEA'
+color_fuente_titulo_graf_intensidad = "rgb(243, 108, 37)"
+color_fuente_graf_intensidad = "rgb(243, 108, 37)"
+color_escala_mapa_intensidad = "Reds" #ver color 
+
+def grafico_linea_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje_y, arr_anios, val_2015, val_actual):
+        
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x = df[columna_x], y = df[columna_y], name='Intensidad'))
+        fig.add_trace(go.Scatter(x = arr_anios, y = val_2015*np.ones_like(arr_anios), mode = 'lines', line={'dash':'dash'}, name='Int. 2015'))
+        # fig.add_trace(go.Scatter(x = arr_anios, y = val_objective*np.ones_like(arr_anios), mode = 'lines', line={'dash':'dash'}, name='Objetivo'))
+        fig.add_trace(go.Scatter(x = [2019], y = [val_actual], mode='markers'))
+        fig.add_layout_image
+        fig.update_layout(
+                        paper_bgcolor= color_marco_graf_intensidad,
+                        plot_bgcolor= color_fondo_graf_intensidad,
+                        title_font_color= color_fuente_titulo_graf_intensidad,
+                        font_color= color_fuente_graf_intensidad,
+                        #width=600,
+                        #height=500,
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size= tamaño_fuente_graficos,
+                                #color="#ffffff"
+                                ),
+                        title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
+        )
+        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_y)
+        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_x)
+
+
+        return fig
+
+def grafico_barras_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
+        fig = px.bar(data_frame= df,
+                        x= columna_x,
+                        y = columna_y,
+                        #title= titulo,
+                        )
+        fig.update_layout(
+                        paper_bgcolor= color_marco_graf_intensidad,
+                        plot_bgcolor= color_fondo_graf_intensidad,
+                        title_font_color= color_fuente_titulo_graf_intensidad,
+                        font_color= color_fuente_graf_intensidad,
+                        #width=600,
+                        #height=500,
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size= tamaño_fuente_graficos,
+                                #color="#ffffff"
+                                ),
+                        title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
+        )
+        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_y)
+        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_x)
         return fig
