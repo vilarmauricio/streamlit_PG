@@ -44,11 +44,35 @@ def main():
     df_merge['reduccion'] = (df_merge['Emisiones_de_CO2']* df_merge['Compromiso'])/100
 
     anio_maximo = df_merge.Anio.max()
+    anio_minimo = df_merge.Anio.min()
+    anio_inicio_kpi = 2015
+    sel_fecha_inicio = anio_inicio_kpi
+    sel_fecha_fin = anio_maximo
     df_ultima_observacion = df_merge[df_merge['Anio'] == anio_maximo]
     suma_emisiones_actual = df_ultima_observacion.Emisiones_de_CO2.sum()
 
+    
+    st.sidebar.write('Para una correcta visualización, utilizar modo CLARO')
+    #listas
+
+    lista_periodos = filtro.lista_anios(df_sin_america_del_norte, 'Anio')
+    periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
+    if periodo == 'Predeterminado':
+        st.sidebar.write('Periodo establecido entre', anio_inicio_kpi, '-', lista_periodos[-1])
+    
+    elif periodo == 'Personalizado':
+        sel_fecha_fin = lista_periodos[-1]
+        lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+        sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+        lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
+        sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+    #st.sidebar.write(sel_fecha_inicio, '-', sel_fecha_fin)
+    #fecha_tupla = st.sidebar.slider('Seleccione Periodo',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
+    #st.sidebar.write(fecha_tupla)
+    #st.sidebar.write(fecha_fin)
+
     # Calculo Emision Objetivo
-    df_inicio_medicion = df_merge[df_merge['Anio'] == 2015]
+    df_inicio_medicion = df_merge[df_merge['Anio'] == anio_inicio_kpi]
     suma_emisiones_inicial = df_inicio_medicion.Emisiones_de_CO2.sum()
     suma_reducciones = df_inicio_medicion.reduccion.sum()
     emisiones_objetivo = suma_emisiones_inicial - suma_reducciones
@@ -59,26 +83,6 @@ def main():
     kpi_pct= round((suma_emisiones_inicial-suma_emisiones_actual)/(suma_reducciones)*100) #usare este kpi
 
 
-
-    with st.sidebar:
-        st.button('Introduccion')
-        #st.button('Hoja 1')
-        #st.button('hoja 2')
-
-    #listas
-    
-    lista_periodos = filtro.lista_anios(df_sin_america_del_norte, 'Anio')
-    sel_fecha_fin = lista_periodos[-1]
-    lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
-    
-    sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
-    lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
-
-    sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
-    st.sidebar.write(sel_fecha_inicio, '-', sel_fecha_fin)
-    #fecha_tupla = st.sidebar.slider('Seleccione Periodo',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
-    #st.sidebar.write(fecha_tupla)
-    #st.sidebar.write(fecha_fin)
 
     # Seleccion paises
     region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
@@ -95,6 +99,7 @@ def main():
     df_ultima_observacion = df_ultima_observacion[df_ultima_observacion['Pais'].isin(seleccion_paises)]
 
     # Datos Grafico
+    df = df[(df['Anio'] >= sel_fecha_inicio) & (df['Anio'] <= sel_fecha_fin)]
     df_agrupacion_sum = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).sum()
     df_agrupacion_promedio = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
