@@ -3,7 +3,8 @@ import streamlit as st
 import pandas as pd
 import datetime as dt
 import numpy as np
-import lib.graficos as graficos 
+import lib.graficos as graficos
+import lib.filtros as filtro 
 
 # Configuracion Pagina
 st.set_page_config(
@@ -64,19 +65,30 @@ def main():
         #st.button('Hoja 1')
         #st.button('hoja 2')
 
-    #lista_paises = sorted(df.Pais.unique())
-    lista_paises_latinoamerica = sorted(df_sin_america_del_norte.Pais.unique())
+    #listas
+    
+    lista_periodos = filtro.lista_anios(df_sin_america_del_norte, 'Anio')
+    sel_fecha_fin = lista_periodos[-1]
+    lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+    
+    sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+    lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
 
+    sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+    st.sidebar.write(sel_fecha_inicio, '-', sel_fecha_fin)
+    #fecha_tupla = st.sidebar.slider('Seleccione Periodo',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
+    #st.sidebar.write(fecha_tupla)
+    #st.sidebar.write(fecha_fin)
 
     # Seleccion paises
     region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
-
+    lista_paises = filtro.lista_paises(df_sin_america_del_norte, 'pais')
     if region == 'Latinoamerica':
-        seleccion_paises =  lista_paises_latinoamerica
+        seleccion_paises =  lista_paises
     #elif region == 'Toda America':
         #seleccion_paises = lista_paises
     elif region == 'Personalizado':
-        seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
+        seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises)
 
 
     #seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises, default= lista_paises)
@@ -87,13 +99,9 @@ def main():
     df_agrupacion_promedio = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
 
-    st.image('./images/ComisionLat1.png')
+    #st.image('./images/ComisionLat1.png')
     st.image('./images/kpi6_1.png')
 
-
-    # card(title="Hello World!", text="Some description", image="http://placekitten.com/200/300")
-
-    progreso = 60
 
     #Contenedor
     with st.container():
@@ -117,7 +125,7 @@ def main():
             
         
         col_mapa, col_grafico = st.columns((2,2))
-
+        #fecha_tupla = st.slider('Seleccione Periodos',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
         with col_mapa:
         # tab_latino_america, tab_mundo = st.tabs(["Latinoamerica", "Mundial"])
             

@@ -1,12 +1,12 @@
     /*fondo*/
     [data-testid="stAppViewContainer"]{
-      background-image: url(https://content.unops.org/photos/News-and-Stories/News/_image1920x900/header_2795x1310_dark.png);
+      background-image: url(https://images.pexels.com/photos/13553606/pexels-photo-13553606.png?auto=compress&cs=tinysrgb&w=1600&lazy=load);
       background-size: cover;
     }
 
     /*Color y forma tarjetas */
     div.css-1r6slb0.e1tzin5v2 {
-      background: rgb(255, 255, 255);
+      background: rgba(255, 255, 255, 0.7);
       text-align: center;
       align-items: center;
       align-content: center;

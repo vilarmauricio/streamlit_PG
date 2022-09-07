@@ -52,7 +52,7 @@ def main():
     elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
    
-    st.image('./images/ComisionLat1.png')
+    #st.image('./images/ComisionLat1.png')
 
 
     # Calculos
@@ -103,7 +103,7 @@ def main():
 
     with col1:
             st.header("KPI's")
-            st.title(str(round(objective_percent,2)) + " %")
+            st.title(str(round(objective_percent*100,2)) + " %")
 
             st.progress(objective_percent)
             
@@ -111,12 +111,12 @@ def main():
     with col2:
             st.header("Reduccion ultimo Registro")
 
-            st.title(str(round(ac_red,2)) + " %")
+            st.title(str(round(ac_red,2)))
             
 
     with col3:
             st.header("Objetivo Reduccion")
-            st.title(str(round(ob_red,2)) + " %")
+            st.title(str(round(ob_red,2)))
             
 
      # GRAFICOS CENTRALES   

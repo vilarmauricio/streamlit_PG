@@ -55,7 +55,7 @@ def main():
    elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
      
-   st.image('./images/ComisionLat1.png')
+   #st.image('./images/ComisionLat1.png')
    st.image('./images/kpi1.png')
 
      # Hacemos los calculos
