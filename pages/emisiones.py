@@ -107,12 +107,12 @@ def main():
     
     
     # Titulo
-    col_logo, col_titulo = st.columns([1,6])
+    col_logo, col_titulo, col_3 = st.columns([1,6,1])
      
     with col_logo:
          st.image('./images/icon_emisiones.png') 
     with col_titulo:
-         st.image('./images/kpi6_1.png')
+         st.image('./images/prueba1.png')
 
 
     #Contenedor
