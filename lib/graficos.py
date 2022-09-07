@@ -10,13 +10,25 @@ import plotly.graph_objects as go
 tamaño_fuente_graficos = 18
 
 
-def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_escala, nombre_locacion, color_escala, color_text, color_marco, color_fondo,color_titulo):
+#Graficos Emisiones
+
+#Colores Graficos
+#Colores graficos
+color_fuente_graf_emisiones = '#407F46'
+color_fuente_titulo_graf_emisiones = '#407F46'
+color_fondo_graf_emisiones = '#EAEAEA'
+color_marco_graf_emisiones = '#FFFFFF'
+color_dibujo_graf_emisiones = 'rgba(92,175,138, 1)'
+color_escala_mapa_emisiones = 'Blugrn'
+transp = 'rgba(0,0,0,0)' 
+
+def grafico_mapa_emisiones(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion):
             fig = px.choropleth(
                     locations= df[columna_locacion], 
                     locationmode="ISO-3", 
-                    scope= region,
+                    scope= 'world',
                     color= df[nombre_columna_color],
-                    color_continuous_scale= color_escala,#"balance", #LE CAMBIÉ LA ESCALA DE COLORES DE BALANCE A VIRIDIS
+                    color_continuous_scale= color_escala_mapa_emisiones,#"balance", #LE CAMBIÉ LA ESCALA DE COLORES DE BALANCE A VIRIDIS
                     #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
                     # ESCALAS DE COLORES    
                     hover_name= df['Pais'],        
@@ -27,7 +39,7 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_esca
                     
                     showlegend = False,
                     geo = dict(
-                        scope= region,
+                        scope= 'world',
                         resolution=50,
                         projection_type='miller',
                         showcoastlines=True,
@@ -49,10 +61,10 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_esca
             fig.update_layout(
                     #height=500, 
                     margin={"r":0,"t":50,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
-                    paper_bgcolor=color_marco,
-                    plot_bgcolor=color_fondo,
-                    title_font_color=color_titulo,
-                    font_color=color_text,
+                    paper_bgcolor=color_marco_graf_emisiones,
+                    plot_bgcolor=color_fondo_graf_emisiones,
+                    title_font_color=color_fuente_titulo_graf_emisiones,
+                    font_color=color_fuente_graf_emisiones,
                     title_x = 0.5,
                     
             )
@@ -60,19 +72,19 @@ def grafico_mapa(df, nombre_columna_color, columna_locacion, region, nombre_esca
 
 
 # Grafico de lineas
-def grafico_linea(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
+def grafico_linea_emisiones(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y):
         fig = go.Figure()
         fig.add_trace(go.Scatter(
                     x= df[nombre_columna_x],
                     y= df[nombre_columna_y],
-                    line={'color':color_dibujo}
+                    line={'color':color_dibujo_graf_emisiones}
                     ))
 
         fig.update_layout(
-                        paper_bgcolor=color_marco,
-                        plot_bgcolor=color_fondo,
-                        title_font_color=color_titulo,
-                        font_color=color_text,
+                        paper_bgcolor=color_marco_graf_emisiones,
+                        plot_bgcolor=color_fondo_graf_emisiones,
+                        title_font_color=color_fuente_titulo_graf_emisiones,
+                        font_color=color_fuente_graf_emisiones,
                         #width=600, 
                         #height=500,
                         #title= titulo,
@@ -93,15 +105,15 @@ def grafico_linea(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_e
     
     
 # Grafico Barras
-def grafico_barras(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo):
+def grafico_barras_emisiones(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y):
         fig = go.Figure()
-        fig.add_trace(go.Bar(x=df[nombre_columna_x], y = df[nombre_columna_y], marker={'color':color_dibujo}))
+        fig.add_trace(go.Bar(x=df[nombre_columna_x], y = df[nombre_columna_y], marker={'color':color_dibujo_graf_emisiones}))
         fig.update_layout(
                         #title = titulo,
-                    paper_bgcolor=color_marco,
-                    plot_bgcolor= color_fondo,
-                    title_font_color=color_titulo,
-                    font_color=color_text,
+                    paper_bgcolor=color_marco_graf_emisiones,
+                    plot_bgcolor= color_fondo_graf_emisiones,
+                    title_font_color=color_fuente_titulo_graf_emisiones,
+                    font_color=color_fuente_graf_emisiones,
                     #width=600,
                     #height=500,
                     font=dict(
@@ -119,6 +131,7 @@ def grafico_barras(df, nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_
 
 
 # Graficos  especificos KPI Temperatura
+
 # Colores Graficos
 color_fuente_graf_tem = 'rgb(252, 183, 20)'
 color_fuente_titulo_graf_tem = 'rgb(252, 183, 20)'
@@ -126,9 +139,8 @@ color_fondo_graf_tem = '#EAEAEA'
 color_marco_graf_tem = 'rgba(0,0,0,0)'
 color_dibujo_graf_tem = '#FDC30C'
 color_dibujo_graf_secundario_tem = '#A37C01'
-color_dibujo_linea_comparativo =  '#FF5733'
+color_dibujo_linea_comparativo_tem =  '#FF5733'
 color_escala_mapa_tem = 'solar_r'
-
 
 def indicador_kpi_temp(df, columna_dato, valor_referencia):
         fig = go.Figure(go.Indicator(
@@ -144,20 +156,72 @@ def indicador_kpi_temp(df, columna_dato, valor_referencia):
 
         return fig
 
-transp = 'rgba(0,0,0,0)' 
-def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y, color_text, color_marco, color_fondo, color_titulo, color_dibujo, color_dibujo_sec):
+
+
+
+def grafico_mapa_temperaturas(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion):
+            fig = px.choropleth(
+                    locations= df[columna_locacion], 
+                    locationmode="ISO-3", 
+                    scope= 'world',
+                    color= df[nombre_columna_color],
+                    color_continuous_scale= color_escala_mapa_tem,#"balance", #LE CAMBIÉ LA ESCALA DE COLORES DE BALANCE A VIRIDIS
+                    #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
+                    # ESCALAS DE COLORES    
+                    hover_name= df['Pais'],        
+                    labels={ "color": nombre_escala,"locations": nombre_locacion})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
+                    #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
+
+            fig.update_layout(
+                    
+                    showlegend = False,
+                    geo = dict(
+                        scope= 'world',
+                        resolution=50,
+                        projection_type='miller',
+                        showcoastlines=True,
+                        showocean=True,
+                        showcountries=True,
+                        oceancolor='#eaeaea',
+                        lakecolor='#eaeaea',
+                        coastlinecolor='#dadada',
+                        fitbounds="locations",
+                        ),
+                    font=dict(
+                                #family="Courier New, monospace",
+                                size=tamaño_fuente_graficos,
+                                #color="#ffffff"
+                                ),
+                    #width=600,
+                    )
+
+            fig.update_layout(
+                    #height=500, 
+                    margin={"r":0,"t":50,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                    paper_bgcolor=color_marco_graf_tem,
+                    plot_bgcolor=color_fondo_graf_tem,
+                    title_font_color=color_fuente_titulo_graf_tem,
+                    font_color=color_fuente_graf_tem,
+                    title_x = 0.5,
+                    
+            )
+            return fig
+
+
+
+def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_columna_y, nombre_eje_x, nombre_eje_y):
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_sec, 'dash':'dash', 'width':4}, name = 'Media siglo XX'))
-    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = 1.5+df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_sec, 'dash':'dot', 'width':4}, name = 'Límite: + 1.5ºC'))
-    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_tabla[nombre_columna_y], mode='lines+markers', line={'color':color_dibujo, 'width':4}, name='Temp. ºC'))
+    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_graf_secundario_tem, 'dash':'dash', 'width':4}, name = 'Media siglo XX'))
+    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = 1.5+df_promedios*np.ones(len(df_tabla[nombre_columna_x])), mode='lines', line={'color':color_dibujo_graf_secundario_tem, 'dash':'dot', 'width':4}, name = 'Límite: + 1.5ºC'))
+    fig.add_trace(go.Scatter(x = df_tabla[nombre_columna_x], y = df_tabla[nombre_columna_y], mode='lines+markers', line={'width':4}, name='Temp. ºC'))
     
     fig.update_layout(
         #title = titulo,
-        paper_bgcolor=color_marco,
-        plot_bgcolor=color_fondo,
-        title_font_color=color_titulo,
-        font_color=color_text,
+        paper_bgcolor=color_marco_graf_tem,
+        plot_bgcolor=color_fondo_graf_tem,
+        title_font_color=color_fuente_titulo_graf_tem,
+        font_color=color_fuente_graf_tem,
         #width=1000,
         #height=500,
         font=dict(
@@ -177,9 +241,9 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
 
 def grafico_temp_linea_comparativo(df1, df2, df3):
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x = df2['Anio'], y = df2['temperatura'], mode='lines',         line={'color':color_dibujo_linea_comparativo, 'dash':'dot'}, name = 'Cuba'))
-        fig.add_trace(go.Scatter(x = df1['Anio'], y = df1['temperatura'], mode='lines+markers', line={'color':color_dibujo_linea_comparativo},               name = 'Bahamas'))
-        fig.add_trace(go.Scatter(x = df3['Anio'], y = df3['temperatura'], mode='lines',         line={'color':color_dibujo_linea_comparativo},               name = 'México'))
+        fig.add_trace(go.Scatter(x = df2['Anio'], y = df2['temperatura'], mode='lines',         line={'dash':'dot'}, name = 'Cuba'))
+        fig.add_trace(go.Scatter(x = df1['Anio'], y = df1['temperatura'], mode='lines+markers',                      name = 'Bahamas'))
+        fig.add_trace(go.Scatter(x = df3['Anio'], y = df3['temperatura'], mode='lines',                              name = 'México'))
         fig.update_layout(
                         #title = 'Países con más aumento de temperatura',
                         paper_bgcolor= color_marco_graf_tem,

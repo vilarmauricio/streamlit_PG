@@ -24,17 +24,6 @@ def crear_dataframe(nombre_archivo):
     df = pd.read_csv('./dataset/'+nombre_archivo)
     return df
 
-# Colores Graficos
-color_fuente_graf = 'rgb(252, 183, 20)'
-color_fuente_titulo_graf = 'rgb(252, 183, 20)'
-color_fondo_graf = '#EAEAEA'
-color_marco_graf = 'rgba(0,0,0,0)'
-color_dibujo_graf = '#FDC30C'
-color_dibujo_graf_secundario = '#A37C01'
-color_escala_mapa = 'solar_r'
-
-transp = 'rgba(0,0,0,0)' 
-
 
 def main():
 
@@ -137,14 +126,14 @@ def main():
 
      with col_mapa:
                 st.subheader("Mapa Cromatico - Variacion Temperatura Pais")
-                figura_mapa = graficos.grafico_mapa(df_mapa, 'diferencia', 'ISO', "world", "Diferencia temperatura", "Pais", color_escala_mapa, color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf)
+                figura_mapa = graficos.grafico_mapa_temperaturas(df_mapa, 'diferencia', 'ISO', "Diferencia temperatura", "Pais")
                 st.plotly_chart(figura_mapa,  use_container_width=True)
 
 
      with col_grafico:
                 st.subheader("Promedio de temperatura en Latinoamerica")
                 try:
-                    figura2 = graficos.grafico_linea_temperatura(tabla_g, mean_siglo_XX, 'Anio', 'temperatura', 'Año', 'Temperatura Promedio (°C)', color_fuente_graf, color_marco_graf, color_fondo_graf, color_fuente_titulo_graf, color_dibujo_graf, color_dibujo_graf_secundario)
+                    figura2 = graficos.grafico_linea_temperatura(tabla_g, mean_siglo_XX, 'Anio', 'temperatura', 'Año', 'Temperatura Promedio (°C)')
                     st.plotly_chart(figura2,  use_container_width=True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
