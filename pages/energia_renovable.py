@@ -56,8 +56,15 @@ def main():
    elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
      
-   #st.image('./images/ComisionLat1.png')
-   st.image('./images/kpi5.png')
+   
+   
+   # Titulo
+   col_logo, col_titulo = st.columns([1,6])
+     
+   with col_logo:
+         st.image('./images/icon_proporcion.png') 
+   with col_titulo:
+         st.image('./images/kpi5.png')
 
    df = df.drop(df[df['Pais']=='Canadá'].index)
    df['ISO']= df['Pais'].map({'Antigua y Barbuda':'ATG','Argentina':'ARG','Bahamas':'BHS','Barbados':'BRB','Belice':'BLZ',
