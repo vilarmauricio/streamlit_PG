@@ -193,6 +193,7 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
                                 size= tamaño_fuente_graficos,
                                 #color="#ffffff"
                                 ),
+                        margin={"r":0,"t":0,"l":0,"b":0},
                         title_x = 0.5,
                         margin={"r":0,"t":0,"l":0,"b":0},
                         )
@@ -528,6 +529,7 @@ def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, nombre_e
 
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
         return fig
+<<<<<<< HEAD
 
 
 # Intensidad Energetica
@@ -597,3 +599,5 @@ def grafico_barras_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_x)
         return fig
+=======
+>>>>>>> e03b14da549f1209ad07eba0ad8c85cc8d7fbb18
