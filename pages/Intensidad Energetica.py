@@ -97,8 +97,7 @@ def main():
     with col_logo:
          st.image('./images/icon_intensidad.png') 
     with col_titulo:
-         st.title('Disminuir a la mitad la Intencidad Energetica del año 2015 para el año 2030')
-         #st.image('./images/kpi3.png')
+         st.image('./images/titulo_intensidad.png')
      # TARJETAS
     col1, col2, col3 = st.columns(3)
 

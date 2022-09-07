@@ -99,7 +99,7 @@ def main():
      with col_logo:
          st.image('./images/icon_temperatura.png') 
      with col_titulo:
-         st.image('./images/kpi2.png')
+         st.image('./images/titulo_temperatura.png')
 
 
      #Contenedor

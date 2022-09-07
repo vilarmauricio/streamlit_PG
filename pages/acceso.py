@@ -105,7 +105,7 @@ def main():
    with col_logo:
          st.image('./images/icon_acceso.png') 
    with col_titulo:
-         st.image('./images/kpi1.png')
+         st.image('./images/titulo_acceso.png')
 
 
 
@@ -114,7 +114,7 @@ def main():
    col1, col2, col3 = st.columns(3)
 
    with col1:
-            st.plotly_chart(graficos.indicador_kpi_acceso(tabla_g20, 'promedio',95, "Promedio"), use_container_width= True)
+            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Acceso'), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
             #st.progress(round(promedio_ultimo_registro))

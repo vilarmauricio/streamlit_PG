@@ -112,7 +112,7 @@ def main():
     with col_logo:
          st.image('./images/icon_emisiones.png') 
     with col_titulo:
-         st.image('./images/prueba1.png')
+         st.image('./images/titulo_emisiones.png')
 
 
     #Contenedor

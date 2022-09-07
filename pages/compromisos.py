@@ -63,8 +63,8 @@ def main():
      with col_logo:
          st.image('./images/icon_cumplimiento.png') 
      with col_titulo:
-         st.title("El 80% de los países Latinoamericanos cumplan con sus compromisos de reducción de emisiones de CO2 para el año 2030")
-         #st.image('./images/kpi3.png')
+         #st.title("El 80% de los países Latinoamericanos cumplan con sus compromisos de reducción de emisiones de CO2 para el año 2030")
+         st.image('./images/titulo_Cumplimiento.png')
      
      
      # TARJETAS
