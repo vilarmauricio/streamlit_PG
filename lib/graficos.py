@@ -1,4 +1,3 @@
-from turtle import width
 import pandas as pd
 import datetime as dt
 import numpy as np
@@ -70,7 +69,7 @@ def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
     )
     fig.update_layout(
                         height=300, 
-                        #width = 300,
+                        
                         margin={"r":0,"t":0,"l":0,"b":0},
                         font=dict(
                                 #family="Courier New, monospace",
