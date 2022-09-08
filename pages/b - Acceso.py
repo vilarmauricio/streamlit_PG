@@ -153,7 +153,7 @@ def main():
 
    with col_graf_1:
                st.subheader('Proporción de la población ccon acceso a servicios energéticos asequibles, fiables y modernos en Latinoamerica')
-               figura_mapa = graficos.grafico_mapa_acceso(df20, 'promedio', 'ISO', "Proporción", "Pais")
+               figura_mapa = graficos.grafico_mapa_acceso(df20, 'promedio', 'ISO', "", "Pais")
                st.plotly_chart(figura_mapa, use_container_width= True)
 
 

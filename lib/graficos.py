@@ -178,7 +178,7 @@ def grafico_mapa_compromiso(dfb):
                     #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
                     # ESCALAS DE COLORES    
                     hover_name= dfb['Pais'],        
-                    labels={ "color": "Compromiso","locations": "País"})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
+                    labels={ "color": "","locations": "País"})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
         fig.update_layout(

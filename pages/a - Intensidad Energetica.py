@@ -131,9 +131,9 @@ def main():
     col_graf_1, col_graf_2 = st.columns(2)
 
     with col_graf_1:
-               st.subheader("Mapa Cromatico - Valor Intensidad Energetica Pais")
+               st.subheader("Valor Intensidad Energetica Pais")
                
-               figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "Intensidad Energetica", "Pais")
+               figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "", "Pais")
                st.plotly_chart(figura_mapa, use_container_width= True)
 
 

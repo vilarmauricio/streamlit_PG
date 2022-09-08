@@ -136,7 +136,7 @@ def main():
 
      with col_mapa:
                 st.subheader("Mapa Cromatico - Variacion Temperatura Pais")
-                figura_mapa = graficos.grafico_mapa_temperaturas(df_mapa, 'diferencia', 'ISO', "Diferencia temperatura", "Pais")
+                figura_mapa = graficos.grafico_mapa_temperaturas(df_mapa, 'diferencia', 'ISO', "", "Pais")
                 st.plotly_chart(figura_mapa,  use_container_width=True)
 
 

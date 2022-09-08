@@ -141,7 +141,7 @@ def main():
 
    with col_graf_1:
                 st.subheader('Mapa Cromatico Proporcion Energias Renovables')
-                figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', "Energia Limpias", "Pais")
+                figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', "", "Pais")
                 st.plotly_chart(figura_mapa, use_container_width= True)
 
 

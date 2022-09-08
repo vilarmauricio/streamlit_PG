@@ -196,12 +196,12 @@ def main():
                 selec_valores = st.selectbox("Valores a mostrar", options= ('Ultimo Registro', 'Inicio Periodo'))
                 if selec_valores == 'Ultimo Registro':
                 
-                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
+                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "", "Pais")
                     st.plotly_chart(figura_mapa,  use_container_width=True)
                 
                 elif selec_valores == 'Inicio Periodo':
                 
-                    figura_mapa = graficos.grafico_mapa_emisiones(df_primer_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
+                    figura_mapa = graficos.grafico_mapa_emisiones(df_primer_observacion, 'Emisiones_de_CO2', "ISO", "", "Pais")
                     st.plotly_chart(figura_mapa,  use_container_width=True)
                 
                 #elif selec_valores == 'Sumatoria Periodos':
