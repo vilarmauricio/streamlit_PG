@@ -50,17 +50,19 @@ def main():
     anio_inicio_kpi = 2015
     sel_fecha_inicio = anio_inicio_kpi
     sel_fecha_fin = anio_maximo
+
+    # Datos ultimo registro
     df_ultima_observacion = df_merge[df_merge['Anio'] == anio_maximo]
     suma_emisiones_actual = df_ultima_observacion.Emisiones_de_CO2.sum()
 
     
-    st.sidebar.write('Para una correcta visualización, utilizar modo CLARO')
+    st.sidebar.write('Para una correcta visualización, utilizar modo "Light". (Menu derecho-superior/ Settings/ Theme Choose: Light)')
     #listas
 
     lista_periodos = filtro.lista_anios(df_sin_america_del_norte, 'Anio')
     periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
     if periodo == 'Predeterminado':
-        st.sidebar.write('Periodo establecido entre', anio_inicio_kpi, '-', lista_periodos[-1])
+        st.sidebar.write('Periodo predeterminado: ', anio_inicio_kpi, '-', lista_periodos[-1])
     
     elif periodo == 'Personalizado':
         sel_fecha_fin = lista_periodos[-1]
@@ -123,6 +125,8 @@ def main():
     df_agrupacion_promedio = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
 
+    df_agrupacion_sum_ultimo_registro = df_agrupacion_sum[df_agrupacion_sum['Anio'] == anio_maximo]
+
     
     
     # Titulo
@@ -169,8 +173,21 @@ def main():
         with col_mapa:
         
                 st.subheader('Cantidad Emisiones CO2 - Paises (2019)')
-                figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
-                st.plotly_chart(figura_mapa,  use_container_width=True)
+                selec_valores = st.select_slider("Valores a mostrar", options= ('Ultimo Registro', 'Suma Periodo', 'Promedio Periodo'))
+                if selec_valores == 'Ultimo Registro':
+                
+                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
+                    st.plotly_chart(figura_mapa,  use_container_width=True)
+                
+                elif selec_valores == 'Suma Periodo':
+                
+                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
+                    st.plotly_chart(figura_mapa,  use_container_width=True)
+                
+                elif selec_valores == 'Promedio Periodo':
+
+                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
+                    st.plotly_chart(figura_mapa,  use_container_width=True)
 
 
         with col_grafico:
