@@ -11,6 +11,26 @@ tamaño_fuente_graficos = 18
 
 # Indicadores KPIs
 
+def indicador_vel_positivo(min_valor, max_valor, valor_actual, valor_objetivo, unidad_medida, titulo, color ):
+        #grafico tentativo
+   fig = go.Figure(go.Indicator(
+                          mode = "gauge+number",
+                          value = valor_actual,
+                          delta = {'reference': valor_objetivo},
+                          title = {'text': f"{titulo} ({unidad_medida})",'font_size':30},
+                          gauge = {'axis': {'range': [min_valor, max_valor]},
+                              'bar': {'color': color,'thickness': 1}
+                              #'steps' : [{'range': [0, 20], 'color': "#f25829"},
+                              #          {'range': [20, 40], 'color': "#f2a529"},
+                              #          {'range': [40, 60], 'color': "#eff229"},
+                              #          {'range': [60, 80], 'color': "#85e043"},
+                              #          {'range': [80, 1000], 'color': "#2bad4e"}]
+                              ,
+                            'threshold' : {'line': {'color': "grey", 'width': 4}, 'thickness': 0.75, 'value': valor_objetivo}}
+                          ))
+   fig.update_layout(height=350)
+   return fig
+
 def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
         #grafico
     plot_bgcolor = "#FFFFFF" 
@@ -526,7 +546,27 @@ def grafico_barra_top_acceso(df, columna_x, columna_y, nombre_eje_x, nombre_eje_
                         margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
-                            title_text= nombre_eje_y)
+                            title_text= nombre_eje_y, range= [97,99])
+        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_x)
+        return fig
+
+def grafico_barras_colores_acceso(df_inicio, df_ultimo, anio_inicio, anio_ultimo, nombre_eje_x, nombre_eje_y):
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+                x=df_inicio['Pais'],
+                y=df_inicio['promedio'],
+                name= anio_inicio,
+                marker_color='indianred',
+                ))
+        fig.add_trace(go.Bar(
+                x=df_ultimo['Pais'],
+                y=df_ultimo['promedio'],
+                 name=anio_ultimo,
+                marker_color='lightsalmon',
+        ))
+        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
+                            title_text= nombre_eje_y, range= [90,99])
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_x)
         return fig

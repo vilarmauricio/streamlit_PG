@@ -145,7 +145,13 @@ def main():
 
         with col1:
             #st.header("Emisiones")
-            st.plotly_chart(graficos.indicador_kpi_emisiones(emisiones_objetivo, suma_emisiones_inicial, suma_emisiones_actual, titulo= "Emisiones"), use_container_width= True)
+            st.plotly_chart(graficos.indicador_vel_positivo(min_valor= suma_emisiones_inicial,
+                                                            max_valor= emisiones_objetivo,
+                                                            valor_actual= round(suma_emisiones_actual), 
+                                                            valor_objetivo= emisiones_objetivo,
+                                                            unidad_medida= 'Mill Tn',
+                                                            titulo= "Emisiones CO2",
+                                                            color= '#407F46'), use_container_width= True)
             
             
             #st.title(str(kpi_pct) + "%")
@@ -155,16 +161,23 @@ def main():
         with col2:
             with st.container():
             
-                st.header("Emisiones Actuales CO2")
+                st.header("Emisiones Actuales CO2 (Mill Tn)")
                 st.title(str(round(suma_emisiones_actual)))
             
             with st.container():
-                st.header("Emisiones Objetivo CO2")
+                st.header("Emisiones Objetivo CO2 (Mill Tn)")
                 st.title(str(round(emisiones_objetivo)))
 
         with col3:
             #st.header("Porcentaje de Paises Que Cumplen el Compromiso")
-            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
+            #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
+            st.plotly_chart(graficos.indicador_vel_positivo(min_valor= 0,
+                                                            max_valor= 100,
+                                                            valor_actual= round(kpi_cumplimiento), 
+                                                            valor_objetivo= 100,
+                                                            unidad_medida= '%',
+                                                            titulo= "Porc. Cumplimiento",
+                                                            color= '#407F46'), use_container_width= True)
             
             
         
@@ -173,7 +186,7 @@ def main():
         with col_mapa:
         
                 st.subheader('Cantidad Emisiones CO2 - Paises (2019)')
-                selec_valores = st.select_slider("Valores a mostrar", options= ('Ultimo Registro', 'Suma Periodo', 'Promedio Periodo'))
+                selec_valores = st.selectbox("Valores a mostrar", options= ('Ultimo Registro', 'Suma Periodo', 'Promedio Periodo'))
                 if selec_valores == 'Ultimo Registro':
                 
                     figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")

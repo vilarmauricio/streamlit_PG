@@ -77,6 +77,16 @@ def main():
    df21 = df20[((df20['Anio'])==2019)]
    tabla_g21 = df21.sort_values(by= 'promedio', ascending= False).head(5)
    tabla_g21.reset_index(inplace=True)
+   # Grafico de barra colores
+   anio_ultimo_registro_df20 = df20.Anio.max()
+   anio_primer_registro_df20 = df20.Anio.min()
+   df_ultimo = df20[df20['Anio'] == anio_ultimo_registro_df20]
+   df_inicio = df20[df20['Anio'] == anio_primer_registro_df20]
+   df_ultimo = df_ultimo.sort_values('promedio', ascending= False).head(5)
+   lista_paises_top = df_ultimo.Pais.unique()
+   df_ultimo2 = df_ultimo[df_ultimo['Pais'].isin(lista_paises_top)]
+   df_inicio2 = df_inicio[df_inicio['Pais'].isin(lista_paises_top)]
+
 
    # Tabla grafico de lineas top 3 paises mayor proporcion
    lista_pais_mayor_proporcion_acceso = tabla_g21.Pais.unique()
@@ -157,12 +167,15 @@ def main():
 
    with col_graf_3:
             
-            try:
+            #try:
                st.subheader('Países con mayor proporción de la población con acceso a servicios energéticos asequibles, fiables y modernos')
-               figura_top = graficos.grafico_linea_comparativo_acceso(tabla_g22, 'Anio', 'promedio', 'Pais', 'Anio', 'Promedio')
+               
+               figura_top = graficos.grafico_barras_colores_acceso(df_inicio2, df_ultimo2, str(anio_primer_registro_df20), str(anio_ultimo_registro_df20), 'Pais', 'Acceso Promedio (%)')
+               # figura_top = graficos.grafico_barra_top_acceso(tabla_g21, 'Pais', 'promedio', 'Pais', 'Promedio')
+               #figura_top = graficos.grafico_linea_comparativo_acceso(tabla_g22, 'Anio', 'promedio', 'Pais', 'Anio', 'Promedio')
                st.plotly_chart(figura_top, use_container_width= True)
-            except ValueError:
-                st.error("Seleccionar por lo menos 1 (uno) Pais")
+            #except ValueError:
+             #   st.error("Seleccionar por lo menos 1 (uno) Pais")
         
    with col_graf_4:
            
