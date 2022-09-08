@@ -140,7 +140,7 @@ def main():
         col1, col2, col3 = st.columns((3,3,3))
 
         with col1:
-            st.header("Emisiones")
+            #st.header("Emisiones")
             st.plotly_chart(graficos.indicador_kpi_emisiones(emisiones_objetivo, suma_emisiones_inicial, suma_emisiones_actual, titulo= "Emisiones"), use_container_width= True)
             
             
@@ -159,7 +159,7 @@ def main():
                 st.title(str(round(emisiones_objetivo)))
 
         with col3:
-            st.header("Porcentaje de Paises Que Cumplen el Compromiso")
+            #st.header("Porcentaje de Paises Que Cumplen el Compromiso")
             st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
             
             

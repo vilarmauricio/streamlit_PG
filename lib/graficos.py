@@ -1,3 +1,4 @@
+from turtle import width
 import pandas as pd
 import datetime as dt
 import numpy as np
@@ -13,7 +14,7 @@ tamaño_fuente_graficos = 18
 
 def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
         #grafico
-    plot_bgcolor = "#def" 
+    plot_bgcolor = "#FFFFFF" 
     quadrant_colors = [plot_bgcolor, "#2bad4e", "#85e043", "#eff229", "#f2a529", "#f25829"]
     quadrant_text = ["", "<b>Very high</b>", "<b>High</b>", "<b>Medium</b>", "<b>Low</b>", "<b>Very low</b>"]
     n_quadrants = len(quadrant_colors) - 1
@@ -44,7 +45,7 @@ def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
             paper_bgcolor=plot_bgcolor,
             annotations=[
                 go.layout.Annotation(
-                    text=f"<b>{titulo}:</b><br>{current_value * -1}",
+                    text=f"<b>{titulo}:</b><br>{round(current_value * -1)}",
                     x=0.5, xanchor="center", xref="paper",
                     y=0.25, yanchor="bottom", yref="paper",
                     showarrow=False,
@@ -67,11 +68,21 @@ def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
             ]
         )
     )
+    fig.update_layout(
+                        height=300, 
+                        #width = 300,
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size=30,
+                                #color="#ffffff"
+                                ),
+                        )
     return fig
 
 def indicador_kpi_acceso(min_valor, max_valor, valor_actual, titulo):
         #grafico
-    plot_bgcolor = "#def" 
+    plot_bgcolor = "#FFFFFF" 
     quadrant_colors = [plot_bgcolor, "#2bad4e", "#85e043", "#eff229", "#f2a529", "#f25829"]
     quadrant_text = ["", "<b>Very high</b>", "<b>High</b>", "<b>Medium</b>", "<b>Low</b>", "<b>Very low</b>"]
     n_quadrants = len(quadrant_colors) - 1
@@ -102,7 +113,7 @@ def indicador_kpi_acceso(min_valor, max_valor, valor_actual, titulo):
             paper_bgcolor=plot_bgcolor,
             annotations=[
                 go.layout.Annotation(
-                    text=f"<b>{titulo}:</b><br>{current_value}",
+                    text=f"<b>{titulo}:</b><br>{round(current_value)}",
                     x=0.5, xanchor="center", xref="paper",
                     y=0.25, yanchor="bottom", yref="paper",
                     showarrow=False,
@@ -125,6 +136,15 @@ def indicador_kpi_acceso(min_valor, max_valor, valor_actual, titulo):
             ]
         )
     )
+    fig.update_layout(
+                        height=300, 
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size=30,
+                                #color="#ffffff"
+                                ),
+                        )
     return fig
 
 # GRaficos Compromisos
