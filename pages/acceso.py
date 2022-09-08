@@ -158,7 +158,7 @@ def main():
    with col_graf_3:
             
             try:
-               st.subheader('Países con países con mayor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos')
+               st.subheader('Países con mayor proporción de la población con acceso a servicios energéticos asequibles, fiables y modernos')
                figura_top = graficos.grafico_linea_comparativo_acceso(tabla_g22, 'Anio', 'promedio', 'Pais', 'Anio', 'Promedio')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
@@ -167,7 +167,7 @@ def main():
    with col_graf_4:
            
             try:
-               st.subheader('Países con países con menor proporción de la población con con acceso a servicios energéticos asequibles, fiables y modernos')           
+               st.subheader('Países con menor proporción de la población con acceso a servicios energéticos asequibles, fiables y modernos')           
                figura_down = graficos.grafico_linea_comparativo_acceso(tabla_g24, columna_x= 'Anio', columna_y= 'promedio', color_categ='Pais', nombre_eje_x= 'Anio', nombre_eje_y= 'Promedio')
                st.plotly_chart(figura_down, use_container_width= True)
             except ValueError:
