@@ -108,8 +108,14 @@ def main():
      col1, col2, col3 = st.columns(3)
 
      with col1:
-            st.plotly_chart(graficos.indicador_kpi_acceso(mean_siglo_XX, temperatura_limite, media_actual, 'Temperatura'), use_container_width= True)
-            
+            #st.plotly_chart(graficos.indicador_kpi_acceso(mean_siglo_XX, temperatura_limite, media_actual, 'Temperatura'), use_container_width= True)
+            st.plotly_chart(graficos.indicador_vel_positivo(min_valor= mean_siglo_XX,
+                                                            max_valor= temperatura_limite,
+                                                            valor_actual= round(media_actual, 2), 
+                                                            valor_objetivo= temperatura_limite,
+                                                            unidad_medida= '°C',
+                                                            titulo= "Temperatura",
+                                                            color= "rgb(252, 183, 20)"), use_container_width= True)
             #st.header("KPI's")
             #st.title("+ " + str(round((media_actual - media_siglo_XX), 2))+"°C")
             #st.progress(round(kpi_estado))

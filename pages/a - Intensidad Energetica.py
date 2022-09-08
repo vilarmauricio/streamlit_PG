@@ -102,8 +102,14 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(ac_red,2), 'Porcentaje Intensidad' ), use_container_width= True)
-            
+            #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(ac_red,2), 'Porcentaje Intensidad' ), use_container_width= True)
+            st.plotly_chart(graficos.indicador_vel_positivo(min_valor= 0,
+                                                            max_valor= 100,
+                                                            valor_actual= round(ac_red,2), 
+                                                            valor_objetivo= ob_red,
+                                                            unidad_medida= 'Mill Tn',
+                                                            titulo= "Intencidad (%)",
+                                                            color= "rgb(243, 108, 37)"), use_container_width= True)
             #st.header("KPI's")
             #st.title(str(round(objective_percent*100,2)) + " %")
 

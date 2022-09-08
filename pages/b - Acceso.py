@@ -124,7 +124,14 @@ def main():
    col1, col2, col3 = st.columns(3)
 
    with col1:
-            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Acceso'), use_container_width= True)
+            #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Acceso'), use_container_width= True)
+            st.plotly_chart(graficos.indicador_vel_positivo(min_valor= 0,
+                                                            max_valor= 100,
+                                                            valor_actual= round(promedio_ultimo_registro), 
+                                                            valor_objetivo= 95,
+                                                            unidad_medida= '%',
+                                                            titulo= "Accesso Poblacional",
+                                                            color= "rgb(225,40,72)"), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
             #st.progress(round(promedio_ultimo_registro))
