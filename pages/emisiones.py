@@ -160,7 +160,7 @@ def main():
 
         with col3:
             st.header("Porcentaje de Paises Que Cumplen el Compromiso")
-            st.plotly_chart(graficos.indicador_kpi_emisiones(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
+            st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
             
             
         
