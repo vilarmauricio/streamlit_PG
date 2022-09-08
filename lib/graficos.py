@@ -9,18 +9,7 @@ import plotly.graph_objects as go
                  
 tamaño_fuente_graficos = 18
 
-
-#Graficos Emisiones
-
-#Colores Graficos
-#Colores graficos
-color_fuente_graf_emisiones = '#407F46'
-color_fuente_titulo_graf_emisiones = '#407F46'
-color_fondo_graf_emisiones = '#EAEAEA'
-color_marco_graf_emisiones = '#FFFFFF'
-color_dibujo_graf_emisiones = 'rgba(92,175,138, 1)'
-color_escala_mapa_emisiones = 'Blugrn'
-transp = 'rgba(0,0,0,0)' 
+# Indicadores KPIs
 
 def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):
         #grafico
@@ -137,6 +126,57 @@ def indicador_kpi_acceso(min_valor, max_valor, valor_actual, titulo):
         )
     )
     return fig
+
+# GRaficos Compromisos
+
+def grafico_mapa_compromiso(dfb):
+        fig = px.choropleth(
+                    locations= dfb['ISO_x'], 
+                    locationmode="ISO-3", 
+                    scope="world",
+                    color= dfb['Compromiso'],
+                    color_continuous_scale= 'viridis',#"balance", #LE CAMBIÉ LA ESCALA DE COLORES DE BALANCE A VIRIDIS
+                    #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
+                    # ESCALAS DE COLORES    
+                    hover_name= dfb['Pais'],        
+                    labels={ "color": "Compromiso","locations": "País"})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
+                    #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
+
+        fig.update_layout(
+            title_text = 'Países que cumplieron o no el compromiso',
+            showlegend = True,
+            geo = dict(
+                scope='world',
+                resolution=50,
+                projection_type='miller',
+                showcoastlines=True,
+                showocean=True,
+                showcountries=True,
+                oceancolor='#eaeaea',
+                lakecolor='#eaeaea',
+                coastlinecolor='#dadada',
+            fitbounds="locations"))
+
+
+        fig.update_layout(
+                        #height=500, 
+                        margin={"r":0,"t":0,"l":0,"b":0})#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+        return fig        
+
+
+#Graficos Emisiones
+
+#Colores Graficos
+#Colores graficos
+color_fuente_graf_emisiones = '#407F46'
+color_fuente_titulo_graf_emisiones = '#407F46'
+color_fondo_graf_emisiones = '#EAEAEA'
+color_marco_graf_emisiones = '#FFFFFF'
+color_dibujo_graf_emisiones = 'rgba(92,175,138, 1)'
+color_escala_mapa_emisiones = 'Blugrn'
+transp = 'rgba(0,0,0,0)' 
+
+
 
 def grafico_mapa_emisiones(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion):
             fig = px.choropleth(

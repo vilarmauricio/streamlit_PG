@@ -14,7 +14,20 @@
       padding: 2% 2% 2% 2%;
       border-radius: 10px;
       font-family: 'Roboto', sans-serif;
-    }  
+    }
+    /* Color y forma contenedores dentro de tarjeta*/
+    
+    
+    div.css-1a65djw.e1tzin5v0 {
+      background: rgba(255, 255, 255, 0.7);
+      /*text-align: center;
+      align-items: center;
+      align-content: center;*/
+      border: solid #DCDCDC;
+      padding: 2% 2% 2% 2%;
+      border-radius: 10px;
+      font-family: 'Roboto', sans-serif;
+    }
 
     /*Color y forma Columnas */
     div.css-keje6w.e1tzin5v2 {

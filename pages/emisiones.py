@@ -34,14 +34,16 @@ def main():
 
 
     df = crear_dataframe('emisiones_cod.csv')
-    df_compromisos = crear_dataframe('compromisos.csv')
+    df_compromisos = crear_dataframe('Porcentraje compromiso2.csv')
     df_compromisos.drop('Pais', axis= 1, inplace= True)
     df_compromisos.rename(columns= {'Cod_Pais' : 'ISO'}, inplace= True)
+
+    
 
     # Calculos
     df_sin_america_del_norte = df[df['Región'] != 'América del Norte']
     df_merge = pd.merge(df_sin_america_del_norte, df_compromisos, how= 'left', on= 'ISO')
-    df_merge['reduccion'] = (df_merge['Emisiones_de_CO2']* df_merge['Compromiso'])/100
+    df_merge['reduccion'] = (df_merge['Emisiones_de_CO2']* df_merge['Compromiso30'])/100
 
     anio_maximo = df_merge.Anio.max()
     anio_minimo = df_merge.Anio.min()
@@ -82,7 +84,24 @@ def main():
 
     kpi_pct= round((suma_emisiones_inicial-suma_emisiones_actual)/(suma_reducciones)*100) #usare este kpi
 
+    # Calculos compromisos
+    df_inicio_medicion['val20']= df_inicio_medicion['Emisiones_de_CO2']-((df_inicio_medicion['Compromiso20']*df_inicio_medicion['Emisiones_de_CO2'])/100)
+    df_inicio_medicion['val30']= df_inicio_medicion['Emisiones_de_CO2']-((df_inicio_medicion['Compromiso30']*df_inicio_medicion['Emisiones_de_CO2'])/100)
+    dfcomp = df_inicio_medicion.filter(items= ['Pais','ISO','val20','val30', 'Compromiso20'])
+    dfb = pd.merge(dfcomp, df_ultima_observacion, on= 'Pais')  
+    dfb['dif'] = dfb['val20'] - dfb['Emisiones_de_CO2']  
 
+    conditionlist = [
+        (dfb['Compromiso20_x'] == 0.0),
+        (dfb['Emisiones_de_CO2']<dfb['val20']) ,
+        (dfb['Emisiones_de_CO2']>dfb['val20'])]
+    choicelist = ['Sin Compromiso','Cumplió', 'No cumplió']
+    dfb['Compromiso'] = np.select(conditionlist, choicelist, default='Not Specified')
+
+    dfc = dfb.drop(dfb[dfb['Compromiso20_x']==0.0].index)
+    cumplen20 = dfc[dfc['Emisiones_de_CO2']<dfc['val20']]
+    a = cumplen20.sort_values(by= 'dif', ascending= False).head(5)
+    kpi_cumplimiento = (len(cumplen20)*100)/len(dfc)
 
     # Seleccion paises
     region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
@@ -99,7 +118,7 @@ def main():
     df_ultima_observacion = df_ultima_observacion[df_ultima_observacion['Pais'].isin(seleccion_paises)]
 
     # Datos Grafico
-    df = df[(df['Anio'] >= sel_fecha_inicio) & (df['Anio'] <= sel_fecha_fin)]
+    df = df[(df['Anio'] >= (sel_fecha_inicio-10)) & (df['Anio'] <= sel_fecha_fin)]
     df_agrupacion_sum = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).sum()
     df_agrupacion_promedio = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
@@ -121,47 +140,44 @@ def main():
         col1, col2, col3 = st.columns((3,3,3))
 
         with col1:
+            st.header("Emisiones")
             st.plotly_chart(graficos.indicador_kpi_emisiones(emisiones_objetivo, suma_emisiones_inicial, suma_emisiones_actual, titulo= "Emisiones"), use_container_width= True)
             
-            #st.header("Cumplimiento KPI's")
+            
             #st.title(str(kpi_pct) + "%")
             #st.progress(kpi_pct)
             
 
         with col2:
-            st.header("Emisiones Actuales CO2")
-            st.title(str(round(suma_emisiones_actual)))
+            with st.container():
             
+                st.header("Emisiones Actuales CO2")
+                st.title(str(round(suma_emisiones_actual)))
+            
+            with st.container():
+                st.header("Emisiones Objetivo CO2")
+                st.title(str(round(emisiones_objetivo)))
 
         with col3:
-            st.header("Emisiones Objetivo CO2")
-            st.title(str(round(emisiones_objetivo)))
+            st.header("Porcentaje de Paises Que Cumplen el Compromiso")
+            st.plotly_chart(graficos.indicador_kpi_emisiones(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)
+            
             
         
         col_mapa, col_grafico = st.columns((2,2))
         #fecha_tupla = st.slider('Seleccione Periodos',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
         with col_mapa:
-        # tab_latino_america, tab_mundo = st.tabs(["Latinoamerica", "Mundial"])
-            
-            #with tab_latino_america:
-            
-            #   figura_mapa = grafico_mapa(df_ultima_observacion, "south america")
-            #  st.plotly_chart(figura_mapa)
-
-            #with tab_mundo:
-                st.subheader('Mapa Emisiones CO2 - Latinoamerica')
+        
+                st.subheader('Cantidad Emisiones CO2 - Paises (2019)')
                 figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
                 st.plotly_chart(figura_mapa,  use_container_width=True)
 
 
         with col_grafico:
-                st.subheader('Emisiones CO2 - Agrupacion Anual')
-                try:
-                    figura2 = graficos.grafico_linea_emisiones(df_agrupacion_sum, 'Anio', 'Emisiones_de_CO2', 'Año', 'Emision CO2 (Mill Tn)')
-                    st.plotly_chart(figura2,  use_container_width=True)
-                except ValueError:
-                    st.error("Seleccionar por lo menos 1 (uno) Pais")
-            
+                st.subheader('Compromisos Cumplidos')
+                figura_mapa_com = graficos.grafico_mapa_compromiso(dfb)
+                st.plotly_chart(figura_mapa_com,  use_container_width=True)
+                #st.dataframe(dfb)
         #st.sidebar.title('Configuracion Graficos de Barras')          
         
         
@@ -171,21 +187,24 @@ def main():
             
             st.subheader('Paises con Mayor Emision CO2')
             try:
-                opciones_mayor = st.slider('Seleccionar cantidad de Paises Top', 1, 10, 5)
-                df_top = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= False).head(opciones_mayor)
-                figura_top = graficos.grafico_barras_emisiones(df_top, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)')
-                st.plotly_chart(figura_top,  use_container_width=True)
+                st.subheader('Emisiones CO2 - Agrupacion Anual')
+                try:
+                    figura2 = graficos.grafico_linea_emisiones(df_agrupacion_sum, 'Anio', 'Emisiones_de_CO2', 'Año', 'Emision CO2 (Mill Tn)')
+                    st.plotly_chart(figura2,  use_container_width=True)
+                except ValueError:
+                    st.error("Seleccionar por lo menos 1 (uno) Pais")
+                
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
         with col_down:
-            st.subheader('Paises con Menor Emision CO2')
+            st.subheader('Paises con Mayor Emision CO2')
             try:
-                opciones_menor = st.slider('Seleccionar cantidad de Paises', 1, 10, 5)
-                df_down = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= True).head(opciones_menor)   
-            
-                figura_down = graficos.grafico_barras_emisiones(df_down, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)')
-                st.plotly_chart(figura_down,  use_container_width=True)
+                opciones_mayor = st.slider('Seleccionar cantidad de Paises Top', 1, 10, 5)
+                df_top = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= False).head(opciones_mayor)
+                figura_top = graficos.grafico_barras_emisiones(df_top, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)')
+                st.plotly_chart(figura_top,  use_container_width=True)
+
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
 

@@ -139,7 +139,7 @@ def main():
 
 
    with col_graf_2:
-                st.subheader('Emisiones CO2 - Agrupacion Anual')
+                st.subheader('Consumo Energia Renovable ')
                 try:
                     
                     figura2 = graficos.grafico_linea_latinoamerica_renovables(tabla_g30, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido','Años', 'Prop Energia Renovable')
