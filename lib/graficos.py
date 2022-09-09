@@ -506,7 +506,7 @@ color_marco_graf_acceso = "#FFFFFF"
 color_fondo_graf_acceso = '#EAEAEA'
 color_fuente_titulo_graf_acceso = "#E5233D"
 color_fuente_graf_acceso = "#000000"
-color_escala_mapa_acceso = "temps"
+color_escala_mapa_acceso = "temps_r"
 
 def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico, 
@@ -639,8 +639,8 @@ def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, nombre_escal
                     #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
                     # ESCALAS DE COLORES    
                     hover_name= df['Pais'],        
-                    labels={ "color": nombre_escala,"locations": nombre_locacion})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
-                    #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
+                    labels={ "color": nombre_escala,"locations": nombre_locacion},
+                    range_color= [70, 100])
 
         fig.update_layout(
                 #title_text = titulo,
