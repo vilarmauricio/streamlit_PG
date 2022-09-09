@@ -80,6 +80,9 @@ def main():
      anio_maximo = df.Anio.max()
      anio_minimo = df.Anio.min()
 
+     tabla_g = df.groupby('Anio', as_index= False).mean()
+     tabla_g.reset_index(inplace=True)
+
      df2 = df[((df['Anio'])== anio_minimo)]
      df3 = df[((df['Anio'])== anio_maximo)]
      df4= pd.merge(df2,df3, on= ['Pais', 'ISO'])
