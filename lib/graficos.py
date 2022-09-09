@@ -221,7 +221,7 @@ color_fuente_titulo_graf_emisiones = '#407F46'
 color_fondo_graf_emisiones = '#EAEAEA'
 color_marco_graf_emisiones = '#FFFFFF'
 color_dibujo_graf_emisiones = 'rgba(92,175,138, 1)'
-color_escala_mapa_emisiones = 'Blugrn'
+color_escala_mapa_emisiones = 'temps'
 transp = 'rgba(0,0,0,0)' 
 
 
@@ -344,7 +344,7 @@ color_marco_graf_tem = 'rgba(0,0,0,0)'
 color_dibujo_graf_tem = '#FDC30C'
 color_dibujo_graf_secundario_tem = '#A37C01'
 color_dibujo_linea_comparativo_tem =  '#FF5733'
-color_escala_mapa_tem = 'solar_r'
+color_escala_mapa_tem = 'temps'
 
 def indicador_kpi_temp(df, columna_dato, valor_referencia):
         fig = go.Figure(go.Indicator(
@@ -506,7 +506,7 @@ color_marco_graf_acceso = "#FFFFFF"
 color_fondo_graf_acceso = '#EAEAEA'
 color_fuente_titulo_graf_acceso = "#E5233D"
 color_fuente_graf_acceso = "#000000"
-color_escala_mapa_acceso = "Reds"
+color_escala_mapa_acceso = "temps"
 
 def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico, 
@@ -685,7 +685,7 @@ color_marco_graf_renovables = "#FFFFFF"
 color_fondo_graf_renovables = '#EAEAEA'
 color_fuente_titulo_graf_renovables = "rgb(192,142, 46)"
 color_fuente_graf_renovables = "#000000"
-color_escala_mapa_renovables = "BrBg"
+color_escala_mapa_renovables = "temps"
 
 def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
         fig = px.line(df_grafico, 
@@ -837,7 +837,7 @@ color_marco_graf_intensidad = "#FFFFFF"
 color_fondo_graf_intensidad = '#EAEAEA'
 color_fuente_titulo_graf_intensidad = "rgb(243, 108, 37)"
 color_fuente_graf_intensidad = "#000000"
-color_escala_mapa_intensidad = "Reds" #ver color 
+color_escala_mapa_intensidad = "temps" #ver color 
 
 def grafico_mapa_intensidad(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion ):
         fig = px.choropleth(
