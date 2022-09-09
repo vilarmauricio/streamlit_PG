@@ -6,6 +6,7 @@ import datetime as dt
 import numpy as np
 import lib.graficos as graficos 
 import plotly.graph_objects as go
+import lib.filtros as filtro
 
 st.set_page_config(
      page_title="KPI Eficiencia Energetica",
@@ -43,6 +44,51 @@ def main():
     lista_paises_latinoamerica = sorted(tabla.Pais.unique())
     lista_paises_latinoamerica.remove('Canadá')
 
+    
+    
+    
+    
+    # Calculos Tarjetas    
+
+    val_2015 = df[df['Anio'] == 2015]['Value'].values[0]
+    val_objective = val_2015/2
+    val_actual = df[df['Anio'] == 2019]['Value'].values[0]
+    # arr_anios = np.arange(2015,2020)
+    arr_anios = df.Anio.values
+
+    # Reducción objetivo y reducción actual
+    ob_red = val_2015 - val_objective
+    ac_red = val_2015 - val_actual
+    #print('Reducción objetivo:', ob_red)
+    #print('Reducción actual:', ac_red)
+    objective_percent = ac_red / ob_red
+    #print('Avance del KPI:', objective_percent*100, '%')
+
+    
+    
+    
+    st.sidebar.write('Para una correcta visualización, utilizar modo "Light". (Menu derecho-superior/ Settings/ Theme Choose: Light)')
+    #listas
+
+    anio_maximo = df.Anio.max()
+    anio_minimo = df.Anio.min()
+    anio_inicio_kpi = 2015
+    sel_fecha_inicio = anio_inicio_kpi -15
+    sel_fecha_fin = anio_maximo
+    
+    
+    lista_periodos = filtro.lista_anios(df, 'Anio')
+    periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
+    if periodo == 'Predeterminado':
+        st.sidebar.write('Periodo predeterminado: ', sel_fecha_inicio, '-', lista_periodos[-1])
+    
+    elif periodo == 'Personalizado':
+        sel_fecha_fin = lista_periodos[-1]
+        lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+        sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+        lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
+        sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+
 
      # Seleccion paises
     region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
@@ -67,23 +113,8 @@ def main():
 
         tabla = tabla[tabla['Pais'].isin(seleccion_paises)]
         
-    # Calculos
     
-
-    val_2015 = df[df['Anio'] == 2015]['Value'].values[0]
-    val_objective = val_2015/2
-    val_actual = df[df['Anio'] == 2019]['Value'].values[0]
-    # arr_anios = np.arange(2015,2020)
-    arr_anios = df.Anio.values
-
-    # Reducción objetivo y reducción actual
-    ob_red = val_2015 - val_objective
-    ac_red = val_2015 - val_actual
-    #print('Reducción objetivo:', ob_red)
-    #print('Reducción actual:', ac_red)
-    objective_percent = ac_red / ob_red
-    #print('Avance del KPI:', objective_percent*100, '%')
-
+    df = df[(df['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
     values2015 = tabla[tabla['Anio'] == 2015][['Pais','intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI']].set_index('Pais').rename(columns={'intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI':'Value_2015'})
     values2019 = tabla[tabla['Anio'] == 2019][['Pais','intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI']].set_index('Pais').rename(columns={'intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI':'Value_2019'})
     df_por_pais = values2015.join(values2019)
