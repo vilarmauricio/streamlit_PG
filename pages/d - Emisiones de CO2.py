@@ -141,11 +141,11 @@ def main():
     
     # Datos ultimo registro
     df_ultima_observacion = df[df['Anio'] == anio_maximo]
-    suma_emisiones_actual = df_ultima_observacion.Emisiones_de_CO2.sum()
+    #suma_emisiones_actual = df_ultima_observacion.Emisiones_de_CO2.sum()
 
     # Datos Pirmer registro
     df_primer_observacion = df[df['Anio'] == anio_minimo]
-    suma_emisiones_inicial = df_primer_observacion.Emisiones_de_CO2.sum()
+    #suma_emisiones_inicial = df_primer_observacion.Emisiones_de_CO2.sum()
     
 
     
