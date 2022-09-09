@@ -24,6 +24,9 @@ def local_css(file_name):
 
 def main():
 
+    st.sidebar.write('Para una correcta visualización, utilizar modo "Light". (Menu derecho-superior/ Settings/ Theme Choose: Light)')
+    
+
     st.image('./images/ComisionLat.png')
     #st.image('./images/kpi6_1.png')
 

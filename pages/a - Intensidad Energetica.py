@@ -159,15 +159,17 @@ def main():
             
 
     with col2:
+                      
+            st.header("Objetivo Reducción")
+            st.title(str(round(ob_red,2)))
+            st.header("")
+            st.header("Prediccion")
+            st.title("3.72 ± 0.07")
+
+    with col3:
             st.header("Reducción Último Registro")
             st.title(str(round(ac_red,2)))
             
-            st.header("Objetivo Reducción")
-            st.title(str(round(ob_red,2)))
-
-    with col3:
-            st.header("Objetivo Reducción")
-            st.title(str(round(ob_red,2)))
             
 
      # GRAFICOS CENTRALES   

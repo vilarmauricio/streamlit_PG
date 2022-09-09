@@ -165,7 +165,7 @@ def main():
 
 
      # TARJETAS
-   col1, col2, col3 = st.columns(3)
+   col1, col2 = st.columns(2)
 
    with col1:
             #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Acceso'), use_container_width= True)
@@ -182,14 +182,20 @@ def main():
             
 
    with col2:
-            st.header("Porcentaje Actual")
-
-            st.title( str(round(promedio_ultimo_registro)) +" %")
-            
-
-   with col3:
             st.header("Porcentaje Objetivo")
             st.title("95 %")
+            st.header("")
+            
+            st.header("Prediccion (%)")
+            st.title( "94 ± 4.5")
+            
+
+   #with col3:
+            
+    #        st.header("Porcentaje Actual")
+    #        st.title( str(round(promedio_ultimo_registro)) +" %")
+            
+
             
 
      # GRAFICOS CENTRALES   
@@ -205,7 +211,7 @@ def main():
                 #st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
                     st.subheader('Proporción de la Población con Acceso a los Servicios')
-                    figura2 = graficos.grafico_linea_latinoamerica_acceso(tabla_g20, 'Anio', 'promedio', 'Año', 'Proporción')
+                    figura2 = graficos.grafico_linea_latinoamerica_acceso(tabla_g20, 'Anio', 'promedio', 'Año', 'Proporción (%)')
                     st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")

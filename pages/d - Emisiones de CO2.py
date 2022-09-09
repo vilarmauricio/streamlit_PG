@@ -177,16 +177,16 @@ def main():
             
             #st.title(str(kpi_pct) + "%")
             #st.progress(kpi_pct)
-            st.header("Emisiones Objetivo CO2 (Mill Tn)")
-            st.title(str(round(emisiones_objetivo)))
 
         with col2:
-            st.plotly_chart(graficos.indicador_kpi_acceso( min_valor= round(valor_proyeccion_baja),
-                                                            max_valor= round(valor_proyeccion_alta),
-                                                            valor_actual= round(valor_proyeccion), 
-                                                            titulo= "Predicción"
-                                                            ), use_container_width= True)
 
+            st.header("Emisiones Objetivo CO2 (Mill Tn)")
+            st.title(str(round(emisiones_objetivo)))
+            st.header("")
+            st.header("Prediccion (Mill Tn)")
+            
+            st.title('2108  ± 168')
+            
         with col3:
             #st.header("Porcentaje de Paises Que Cumplen el Compromiso")
             #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(kpi_cumplimiento), titulo= "Cumplimiento"), use_container_width= True)

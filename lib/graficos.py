@@ -191,7 +191,7 @@ def grafico_mapa_compromiso(dfb):
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
         fig.update_layout(
-            title_text = 'Países que cumplieron o no el compromiso',
+            #title_text = 'Países que cumplieron o no el compromiso',
             showlegend = True,
             geo = dict(
                 scope='world',
