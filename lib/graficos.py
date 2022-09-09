@@ -473,7 +473,7 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
 def grafico_temp_barra(df, columna_x, columna_y):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=df[columna_x], y = df[columna_y], 
-                                marker={'color':'rgb(255, 191, 0)'}
+                                marker={'color':'rgb(255, 187, 51)'}
                                 )
                         )
         fig.update_layout(
@@ -558,7 +558,7 @@ def grafico_barra_top_acceso(df, columna_x, columna_y, nombre_eje_x, nombre_eje_
                         margin={"r":0,"t":0,"l":0,"b":0},
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
-                            title_text= nombre_eje_y, range= [97,99])
+                            title_text= nombre_eje_y)
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_x)
         return fig
@@ -585,7 +585,7 @@ def grafico_barras_colores_acceso(df_inicio, df_ultimo, anio_inicio, anio_ultimo
                                 ),
         )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
-                            title_text= nombre_eje_y, range= [90,99])
+                            title_text= nombre_eje_y)
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_x)
         return fig

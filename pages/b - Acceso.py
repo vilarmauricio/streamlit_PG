@@ -76,14 +76,23 @@ def main():
    tabla_g21 = df21.sort_values(by= 'promedio', ascending= False).head(5)
    tabla_g21.reset_index(inplace=True)
    # Grafico de barra colores
+   
    anio_ultimo_registro_df20 = df20.Anio.max()
    anio_primer_registro_df20 = df20.Anio.min()
    df_ultimo = df20[df20['Anio'] == anio_ultimo_registro_df20]
    df_inicio = df20[df20['Anio'] == anio_primer_registro_df20]
-   df_ultimo = df_ultimo.sort_values('promedio', ascending= False).head(5)
-   lista_paises_top = df_ultimo.Pais.unique()
+   
+   #Top 5 Mayores
+   df_ultimo_up = df_ultimo.sort_values('promedio', ascending= False).head(5)
+   lista_paises_top = df_ultimo_up.Pais.unique()
    df_ultimo2 = df_ultimo[df_ultimo['Pais'].isin(lista_paises_top)]
    df_inicio2 = df_inicio[df_inicio['Pais'].isin(lista_paises_top)]
+   
+   #Top 5 Menores
+   df_ultimo_menores = df_ultimo.sort_values('promedio', ascending= True).head(5)
+   lista_paises_top = df_ultimo_menores.Pais.unique()
+   df_ultimo_menores = df_ultimo[df_ultimo['Pais'].isin(lista_paises_top)]
+   df_inicio_menores = df_inicio[df_inicio['Pais'].isin(lista_paises_top)]
 
 
    # Tabla grafico de lineas top 3 paises mayor proporcion
@@ -186,8 +195,9 @@ def main():
    with col_graf_4:
            
             try:
-               st.subheader('Países con Menor Proporción')           
-               figura_down = graficos.grafico_linea_comparativo_acceso(tabla_g24, columna_x= 'Anio', columna_y= 'promedio', color_categ='Pais', nombre_eje_x= 'Anio', nombre_eje_y= 'Promedio')
+               st.subheader('Países con Menor Proporción')
+
+               figura_down = graficos.grafico_barras_colores_acceso(df_inicio_menores, df_ultimo_menores, str(anio_primer_registro_df20), str(anio_ultimo_registro_df20), 'Pais', 'Acceso Promedio (%)')
                st.plotly_chart(figura_down, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
