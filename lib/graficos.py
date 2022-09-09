@@ -16,8 +16,9 @@ def indicador_vel_positivo(min_valor, max_valor, valor_actual, valor_objetivo, u
    fig = go.Figure(go.Indicator(
                           mode = "gauge+number",
                           value = valor_actual,
+                          
                           delta = {'reference': valor_objetivo},
-                          title = {'text': f"{titulo} ({unidad_medida})",'font_size':30},
+                          title = {'text': f"{titulo} ({unidad_medida})",'font_size':24},
                           gauge = {'axis': {'range': [min_valor, max_valor]},
                               'bar': {'color': color,'thickness': 1}
                               #'steps' : [{'range': [0, 20], 'color': "#f25829"},
@@ -28,7 +29,15 @@ def indicador_vel_positivo(min_valor, max_valor, valor_actual, valor_objetivo, u
                               ,
                             'threshold' : {'line': {'color': "grey", 'width': 4}, 'thickness': 0.75, 'value': valor_objetivo}}
                           ))
-   fig.update_layout(height=350)
+   fig.update_layout(height=250)
+   fig.update_layout(
+                        margin={"r":0,"t":90,"l":0,"b":10},
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size=24,
+                                #color="#ffffff"
+                                ),
+                        )
    return fig
 
 def indicador_kpi_emisiones(min_valor, max_valor, valor_actual, titulo):

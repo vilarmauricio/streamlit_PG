@@ -31,7 +31,7 @@ def crear_dataframe(nombre_archivo):
 
 def main():
 
-     
+    df_predicciones = crear_dataframe('./dataset/predicciones.csv') 
     tabla = crear_dataframe('./dataset/datos_ONU.csv')
     df_paises = crear_dataframe('./dataset/Paises.csv')
     df = tabla[['Pais','Anio','intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI']].copy()
@@ -118,8 +118,8 @@ def main():
                                                             max_valor= 100,
                                                             valor_actual= round(ac_red,2), 
                                                             valor_objetivo= ob_red,
-                                                            unidad_medida= 'Mill Tn',
-                                                            titulo= "Intencidad (%)",
+                                                            unidad_medida= '%',
+                                                            titulo= "Intencidad",
                                                             color= "rgb(243, 108, 37)"), use_container_width= True)
             #st.header("KPI's")
             #st.title(str(round(objective_percent*100,2)) + " %")

@@ -32,7 +32,7 @@ def crear_dataframe(nombre_archivo):
 
 def main():
 
-
+    df_proyecciones = crear_dataframe('predicciones.csv')
     df = crear_dataframe('emisiones_cod.csv')
     df_compromisos = crear_dataframe('Porcentraje compromiso2.csv')
     df_compromisos.drop('Pais', axis= 1, inplace= True)
@@ -91,6 +91,12 @@ def main():
 
     kpi_pct= round((suma_emisiones_inicial-suma_emisiones_actual)/(suma_reducciones)*100) #usare este kpi
 
+    #Proyecciones
+    df_proyecciones = df_proyecciones[df_proyecciones['dataset'] == 'emisiones_co2']
+    valor_proyeccion = df_proyecciones.prediccion.values[0]
+    valor_proyeccion_baja = df_proyecciones.inc_baja.values[0]
+    valor_proyeccion_alta = df_proyecciones.inc_alta.values[0]
+
     # Calculos compromisos
     df_inicio_medicion['val20']= df_inicio_medicion['Emisiones_de_CO2']-((df_inicio_medicion['Compromiso20']*df_inicio_medicion['Emisiones_de_CO2'])/100)
     df_inicio_medicion['val30']= df_inicio_medicion['Emisiones_de_CO2']-((df_inicio_medicion['Compromiso30']*df_inicio_medicion['Emisiones_de_CO2'])/100)
@@ -121,18 +127,26 @@ def main():
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises)
 
 
-    #seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises, default= lista_paises)
-    df_ultima_observacion = df_ultima_observacion[df_ultima_observacion['Pais'].isin(seleccion_paises)]
-    df_primer_observacion = df_primer_observacion[df_primer_observacion['Pais'].isin(seleccion_paises)]
-
-    # Diaos Grafico
+    # Datos Grafico
     df = df_sin_america_del_norte[(df_sin_america_del_norte['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
-    
-    df_agrupacion_sum = df[df['Pais'].isin(seleccion_paises)].groupby('Anio', as_index= False).sum()
-    df_agrupacion_pais = df[df['Pais'].isin(seleccion_paises)].groupby(['Anio','Pais'], as_index= False).mean()
+    df = df[df['Pais'].isin(seleccion_paises)]
+    df_agrupacion_sum = df.groupby('Anio', as_index= False).sum()
+    df_agrupacion_pais = df.groupby(['Anio','Pais'], as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')
 
     df_agrupacion_sum_ultimo_registro = df_agrupacion_sum[df_agrupacion_sum['Anio'] == anio_maximo]
+    
+    anio_maximo = df.Anio.max()
+    anio_minimo = df.Anio.min()
+    
+    # Datos ultimo registro
+    df_ultima_observacion = df[df['Anio'] == anio_maximo]
+    suma_emisiones_actual = df_ultima_observacion.Emisiones_de_CO2.sum()
+
+    # Datos Pirmer registro
+    df_primer_observacion = df[df['Anio'] == anio_minimo]
+    suma_emisiones_inicial = df_primer_observacion.Emisiones_de_CO2.sum()
+    
 
     
     
@@ -163,17 +177,15 @@ def main():
             
             #st.title(str(kpi_pct) + "%")
             #st.progress(kpi_pct)
-            
+            st.header("Emisiones Objetivo CO2 (Mill Tn)")
+            st.title(str(round(emisiones_objetivo)))
 
         with col2:
-            with st.container():
-            
-                st.header("Emisiones Actuales CO2 (Mill Tn)")
-                st.title(str(round(suma_emisiones_actual)))
-            
-            with st.container():
-                st.header("Emisiones Objetivo CO2 (Mill Tn)")
-                st.title(str(round(emisiones_objetivo)))
+            st.plotly_chart(graficos.indicador_kpi_acceso( min_valor= round(valor_proyeccion_baja),
+                                                            max_valor= round(valor_proyeccion_alta),
+                                                            valor_actual= round(valor_proyeccion), 
+                                                            titulo= "Predicción"
+                                                            ), use_container_width= True)
 
         with col3:
             #st.header("Porcentaje de Paises Que Cumplen el Compromiso")
@@ -222,7 +234,7 @@ def main():
 
         with col_top:
             
-            st.subheader('Paises con Mayor Emision CO2')
+            
             try:
                 st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
