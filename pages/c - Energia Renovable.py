@@ -113,7 +113,7 @@ def main():
                                                             valor_actual= round(promedio_ultimo_registro), 
                                                             valor_objetivo= 100,
                                                             unidad_medida= '%',
-                                                            titulo= "Energia Renovable",
+                                                            titulo= "Energía Renovable",
                                                             color= "rgb(192,142, 46)"), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
@@ -135,7 +135,7 @@ def main():
    col_graf_1, col_graf_2 = st.columns(2)
 
    with col_graf_1:
-                st.subheader('Proporcion Energias Renovables')
+                st.subheader('Proporción Energías Renovables')
                 figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', "", "Pais")
                 st.plotly_chart(figura_mapa, use_container_width= True)
 
@@ -158,7 +158,7 @@ def main():
    with col_graf_3:
             
             try:
-               st.subheader('Países con mayor proporción de energía renovable')
+               st.subheader('Países con Mayor Proporción')
                figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
@@ -167,7 +167,7 @@ def main():
    with col_graf_4:
            
             try:
-               st.subheader('Países con menor proporción de energía renovable')           
+               st.subheader('Países con Menor Proporción')           
                figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energías Renovables')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:

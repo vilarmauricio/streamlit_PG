@@ -222,7 +222,7 @@ def main():
             
             
             try:
-                st.subheader('Emisiones CO2 - Agrupacion Anual')
+                st.subheader('Emisiones CO2 - Agrupación Anual')
                 try:
                     figura2 = graficos.grafico_linea_emisiones(df_agrupacion_sum, 'Anio', 'Emisiones_de_CO2', 'Año', 'Emision CO2 (Mill Tn)')
                     st.plotly_chart(figura2,  use_container_width=True)
@@ -233,9 +233,9 @@ def main():
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
         with col_down:
-            st.subheader('Paises con Mayor Emision CO2')
+            st.subheader('Países con Mayor Emisión CO2')
             try:
-                opciones_mayor = st.slider('Seleccionar cantidad de Paises Top', 1, 10, 5)
+                opciones_mayor = st.slider('Seleccionar Cantidad de Paises Top', 1, 10, 5)
                 df_top = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= False).head(opciones_mayor)
                 figura_top = graficos.grafico_barras_emisiones(df_top, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)')
                 st.plotly_chart(figura_top,  use_container_width=True)

@@ -119,7 +119,7 @@ def main():
                                                             valor_actual= round(ac_red,2), 
                                                             valor_objetivo= ob_red,
                                                             unidad_medida= '%',
-                                                            titulo= "Intencidad",
+                                                            titulo= "Intensidad",
                                                             color= "rgb(243, 108, 37)"), use_container_width= True)
             #st.header("KPI's")
             #st.title(str(round(objective_percent*100,2)) + " %")
@@ -128,14 +128,14 @@ def main():
             
 
     with col2:
-            st.header("Reduccion ultimo Registro")
+            st.header("Reducción Último Registro")
             st.title(str(round(ac_red,2)))
             
-            st.header("Objetivo Reduccion")
+            st.header("Objetivo Reducción")
             st.title(str(round(ob_red,2)))
 
     with col3:
-            st.header("Objetivo Reduccion")
+            st.header("Objetivo Reducción")
             st.title(str(round(ob_red,2)))
             
 
@@ -143,14 +143,14 @@ def main():
     col_graf_1, col_graf_2 = st.columns(2)
 
     with col_graf_1:
-               st.subheader("Intensidad Energetica Pais")
+               st.subheader("Intensidad Energética País")
                
-               figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "", "Pais")
+               figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "", "País")
                st.plotly_chart(figura_mapa, use_container_width= True)
 
 
     with col_graf_2:
-                st.subheader('Cambios Intensidad Energetica')
+                st.subheader('Cambios Intensidad Energética')
                 try:
                     figura2 = graficos.grafico_linea_intensidad(df, 'Anio', 'Value', 'Años', 'Valores', arr_anios, val_2015, val_actual)
                     st.plotly_chart(figura2, use_container_width= True)
@@ -164,7 +164,7 @@ def main():
     col_graf_3, col_graf_4 = st.columns(2)
 
     with col_graf_3:
-            st.subheader("Paises con mayor porcentaje cumplido")
+            st.subheader("Paises con Mayor Porcentaje Cumplido")
             try:
                
                figura_top = graficos.grafico_barras_intensidad(top_cerca, 'Pais', 'Porcentaje_cumplido', 'Pais', 'Porcentaje Cumplido')
@@ -173,7 +173,7 @@ def main():
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         
     with col_graf_4:
-            st.subheader("Paises con menor Porcentaje Cumplido") 
+            st.subheader("Paises con Menor Porcentaje Cumplido") 
             try:
                          
                figura_barra = graficos.grafico_barras_intensidad(top_lejos, 'Pais', 'Porcentaje_cumplido', 'Pais', 'Porcentaje Cumplido')
