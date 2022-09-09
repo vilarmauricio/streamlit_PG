@@ -120,7 +120,7 @@ def main():
    tabla_g30.reset_index(inplace=True)
 
     # Tabla grafico de barras top paises mayor proporcion
-   df31 = df30[((df30['Anio'])==2019)]
+   df31 = df30[((df30['Anio'])== sel_fecha_fin)]
    tabla_g31 = df31.sort_values(by= 'proporcion_de_energias_renovables_del_total_consumido', ascending= False).head(5)
    tabla_g31.reset_index(inplace=True)
 
@@ -130,7 +130,7 @@ def main():
    
 
     # Tabla grafico de barras top paises menor proporcion
-   df33 = df30[((df30['Anio'])==2019)]
+   df33 = df30[((df30['Anio'])== sel_fecha_fin)]
    tabla_g33 = df33.sort_values(by= 'proporcion_de_energias_renovables_del_total_consumido', ascending= True).head(5)
    tabla_g33.reset_index(inplace=True)
 
@@ -200,7 +200,7 @@ def main():
             
             try:
                st.subheader('Países con Mayor Proporción')
-               opciones_mayor = st.slider('Seleccionar Cantidad de Paises Top', 3, 5, 3)
+               opciones_mayor = st.slider('Seleccionar Cantidad de Paises.', 3, 5, 3)
                #opciones_mayor = opciones_mayor-1
                df32 = df30[df30.Pais.isin(lista_pais_mayor_proporcion_renovable[:opciones_mayor])]
                figura_top = graficos.grafico_linea_comparativo_renovables(df32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables (%)')
@@ -212,7 +212,7 @@ def main():
            
             try:
                st.subheader('Países con Menor Proporción')
-               opciones_menor = st.slider('Seleccionar Cantidad de Paises Down', 3, 5, 3)
+               opciones_menor = st.slider('Seleccionar Cantidad de Paises', 3, 5, 3)
                df34 = df30[df30.Pais.isin(lista_pais_menor_proporcion_renovable[:opciones_menor])]
                                   
                figura_top = graficos.grafico_linea_comparativo_renovables(df34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energías Renovables (%)')
