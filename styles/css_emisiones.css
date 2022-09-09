@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
+
+html, body, [class*="css"]  {
+font-family: 'Noto Sans', sans-serif;
+}
+    
     /*fondo*/
     [data-testid="stAppViewContainer"]{
       background-image: url(https://images.pexels.com/photos/13553606/pexels-photo-13553606.png?auto=compress&cs=tinysrgb&w=1600&lazy=load);
@@ -6,7 +12,7 @@
 
     /*Color y forma tarjetas */
     div.css-1r6slb0.e1tzin5v2 {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgb(255, 255, 255);
       text-align: center;
       align-items: center;
       align-content: center;
@@ -19,7 +25,7 @@
     
     
     div.css-1a65djw.e1tzin5v0 {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgb(255, 255, 255);
       /*text-align: center;
       align-items: center;
       align-content: center;*/
@@ -43,7 +49,7 @@
 
 
     div.stTabs.css-0.exp6ofz0 {
-      background: rgba(76, 175, 80, 0.3);
+      background: rgb(76, 175, 80);
       text-align: center;
       align-items: center;
       align-content: center;

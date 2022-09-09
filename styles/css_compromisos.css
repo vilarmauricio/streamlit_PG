@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
+
+html, body, [class*="css"]  {
+font-family: 'Noto Sans', sans-serif;
+}
+    
     /*fondo*/
     [data-testid="stAppViewContainer"]{
       background-image: url(https://images.pexels.com/photos/13553607/pexels-photo-13553607.png?auto=compress&cs=tinysrgb&w=1600&lazy=load);

@@ -233,7 +233,10 @@ def main():
      with col_logo:
          st.image('./images/icon_temperatura.png') 
      with col_titulo:
-         st.image('./images/titulo_temperatura.png')
+         st.markdown(
+          """
+         <h1 style="color:white;background-color:rgb(252, 183, 20);padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">El Aumento de la Temperatura Promedio no Deberá Superar los 1.5°C a las Mediciones del Inicio del Siglo XX para el Año 2030</h1>
+         """,unsafe_allow_html=True)
 
 
      #Contenedor

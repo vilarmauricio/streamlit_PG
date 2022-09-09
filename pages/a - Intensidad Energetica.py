@@ -139,7 +139,11 @@ def main():
     with col_logo:
          st.image('./images/icon_intensidad.png') 
     with col_titulo:
-         st.image('./images/titulo_intensidad.png')
+         st.markdown(
+          """
+         <h1 style="color:white;background-color:rgb(243, 108, 37);padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">Disminuir a la Mitad la Intensidad Energética del Año 2015 para el Año 2030</h1>
+         """,unsafe_allow_html=True)
+         
      # TARJETAS
     col1, col2, col3 = st.columns(3)
 

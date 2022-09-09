@@ -158,7 +158,10 @@ def main():
    with col_logo:
          st.image('./images/icon_acceso.png') 
    with col_titulo:
-         st.image('./images/titulo_acceso.png')
+         st.markdown(
+          """
+         <h1 style="color:white;background-color:rgb(225,40,72);padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">95% de la Población con Acceso a Servicios Energéticos Asequibles, Fiables y Modernos para el Año 2030</h1>
+         """,unsafe_allow_html=True)
          
 
 

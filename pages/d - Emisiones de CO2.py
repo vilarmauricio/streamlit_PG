@@ -156,7 +156,10 @@ def main():
     with col_logo:
          st.image('./images/icon_emisiones.png') 
     with col_titulo:
-         st.image('./images/titulo_emisiones.png')
+         st.markdown(
+          """
+         <h1 style="color:white;background-color:#407F46;padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">95% de Cumplimiento en el Total de los Compromisos de Emisiones de CO2 en Latinoamérica para el Año 2030</h1>
+         """,unsafe_allow_html=True)
 
 
     #Contenedor

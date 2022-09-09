@@ -91,7 +91,11 @@ def main():
    with col_logo:
          st.image('./images/icon_proporcion.png') 
    with col_titulo:
-         st.image('./images/titulo_proporcion.png')
+         st.markdown(
+          """
+         <h1 style="color:white;background-color:rgb(192,142, 46);padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">100% de Proporción de Energía Renovable en el Consumo Final Total de Energía para el Año 2030</h1>
+         """,unsafe_allow_html=True)
+         #st.image('./images/titulo_proporcion.png')
 
    
    df['ISO']= df['Pais'].map({'Antigua y Barbuda':'ATG','Argentina':'ARG','Bahamas':'BHS','Barbados':'BRB','Belice':'BLZ',
