@@ -55,6 +55,7 @@ def main():
    sel_fecha_inicio = anio_inicio_kpi -15
    sel_fecha_fin = anio_maximo
     
+   st.sidebar.write('Para una correcta visualización, utilizar modo "Light". (Menu derecho-superior/ Settings/ Theme Choose: Light)')
     
    lista_periodos = filtro.lista_anios(df, 'Anio')
    periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
