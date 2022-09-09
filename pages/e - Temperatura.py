@@ -265,7 +265,7 @@ def main():
             st.header("Promedio Límite (°C)")
             st.title(str(round(temperatura_limite,2)))
             st.header("")
-            st.header("Prediccion (°C)")
+            st.header("Predicción año 2030 (°C)")
             st.title( "24.2 ± 0.3")
             
 

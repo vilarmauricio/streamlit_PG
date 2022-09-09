@@ -189,7 +189,7 @@ def main():
             st.title("95")
             st.header("")
             
-            st.header("Prediccion (%)")
+            st.header("Predicción año 2030 (%)")
             st.title( "94 ± 4.5")
             
 

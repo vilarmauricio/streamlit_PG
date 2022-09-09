@@ -164,7 +164,7 @@ def main():
             st.title("100 %")
             st.header("")
             
-            st.header("Prediccion (%)")
+            st.header("Predicción año 2030 (%)")
             st.title( "21.8 ± 0.4")
 
    #with col3:

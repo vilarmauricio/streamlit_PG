@@ -186,7 +186,7 @@ def main():
             st.header("Emisiones Objetivo CO2 (Mill Tn)")
             st.title(str(round(emisiones_objetivo)))
             st.header("")
-            st.header("Prediccion (Mill Tn)")
+            st.header("Predicción año 2030 (Mill Tn)")
             
             st.title('2108  ± 168')
             

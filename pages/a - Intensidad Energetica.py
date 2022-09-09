@@ -167,7 +167,7 @@ def main():
             st.header("Objetivo Reducción (MJ/USD)")
             st.title(str(round(ob_red,2)))
             st.header("")
-            st.header("Prediccion (MJ/USD)")
+            st.header("Predicción año 2030 (MJ/USD)")
             st.title("3.72 ± 0.07")
 
     with col3:
