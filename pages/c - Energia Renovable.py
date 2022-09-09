@@ -135,7 +135,7 @@ def main():
    col_graf_1, col_graf_2 = st.columns(2)
 
    with col_graf_1:
-                st.subheader('Mapa Cromatico Proporcion Energias Renovables')
+                st.subheader('Proporcion Energias Renovables')
                 figura_mapa = graficos.grafico_mapa_renovables(df31, 'proporcion_de_energias_renovables_del_total_consumido', 'ISO', "", "Pais")
                 st.plotly_chart(figura_mapa, use_container_width= True)
 
@@ -158,7 +158,7 @@ def main():
    with col_graf_3:
             
             try:
-               st.subheader('Países con mayor proporción de energía renovable en el consumo final total de energía')
+               st.subheader('Países con mayor proporción de energía renovable')
                figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
@@ -167,7 +167,7 @@ def main():
    with col_graf_4:
            
             try:
-               st.subheader('Países con mayor proporción de energía renovable en el consumo final total de energía')           
+               st.subheader('Países con menor proporción de energía renovable')           
                figura_top = graficos.grafico_linea_comparativo_renovables(tabla_g34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energías Renovables')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
