@@ -176,8 +176,8 @@ def main():
                                                             max_valor= 100,
                                                             valor_actual= round(promedio_ultimo_registro, 2), 
                                                             valor_objetivo= 95,
-                                                            unidad_medida= 'Mill Tn',
-                                                            titulo= "Acceso (%)",
+                                                            unidad_medida= '%',
+                                                            titulo= "Acceso (2019)",
                                                             color= "rgb(225,40,72)"), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
@@ -185,11 +185,11 @@ def main():
             
 
    with col2:
-            st.header("Objetivo (%)")
+            st.header("Objetivo 2030 (%)")
             st.title("95")
             st.header("")
             
-            st.header("Predicción año 2030 (%)")
+            st.header("Predicción 2030 (%)")
             st.title( "94 ± 4.5")
             
 

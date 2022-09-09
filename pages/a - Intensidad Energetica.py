@@ -154,7 +154,7 @@ def main():
                                                             valor_actual= round(ac_red,2), 
                                                             valor_objetivo= ob_red,
                                                             unidad_medida= '%',
-                                                            titulo= "Reducción Intensidad",
+                                                            titulo= "Reducción Intensidad (2019)",
                                                             color= "rgb(243, 108, 37)"), use_container_width= True)
             #st.header("KPI's")
             #st.title(str(round(objective_percent*100,2)) + " %")
@@ -164,14 +164,14 @@ def main():
 
     with col2:
                       
-            st.header("Objetivo Reducción (MJ/USD)")
+            st.header("Objetivo Reducción (2030) (MJ/USD)")
             st.title(str(round(ob_red,2)))
             st.header("")
-            st.header("Predicción año 2030 (MJ/USD)")
+            st.header("Predicción (2030) (MJ/USD)")
             st.title("3.72 ± 0.07")
 
     with col3:
-            st.header("Reducción Último Registro (MJ/USD)")
+            st.header("Reducción (2019) (MJ/USD)")
             st.title(str(round(ac_red,2)))
             
             

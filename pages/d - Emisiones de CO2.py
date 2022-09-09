@@ -174,7 +174,7 @@ def main():
                                                             valor_actual= round(suma_emisiones_actual), 
                                                             valor_objetivo= emisiones_objetivo,
                                                             unidad_medida= 'Mill Tn',
-                                                            titulo= "Emisiones CO2",
+                                                            titulo= "Emisiones CO2 2019",
                                                             color= '#407F46'), use_container_width= True)
             
             
@@ -183,10 +183,10 @@ def main():
 
         with col2:
 
-            st.header("Emisiones Objetivo CO2 (Mill Tn)")
+            st.header("Objetivo CO2 2030 (Mill Tn)")
             st.title(str(round(emisiones_objetivo)))
             st.header("")
-            st.header("Predicción año 2030 (Mill Tn)")
+            st.header("Predicción 2030 (Mill Tn)")
             
             st.title('2108  ± 168')
             
@@ -238,7 +238,7 @@ def main():
         with col_down:
             st.subheader('Países con Mayor Emisión CO2')
             try:
-                opciones_mayor = st.slider('Seleccionar Cantidad de Paises Top', 1, 10, 5)
+                opciones_mayor = st.slider('Seleccionar Cantidad de Paises', 1, 10, 5)
                 df_top = df_ultima_observacion.sort_values(by = 'Emisiones_de_CO2' ,ascending= False).head(opciones_mayor)
                 figura_top = graficos.grafico_barras_emisiones(df_top, 'Pais', 'Emisiones_de_CO2', 'Pais', 'Emision CO2 (Mill Tn)')
                 st.plotly_chart(figura_top,  use_container_width=True)

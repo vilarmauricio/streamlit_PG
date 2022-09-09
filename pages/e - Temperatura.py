@@ -138,9 +138,9 @@ def main():
                 #temperatura_limite = 1.5+mean_siglo_XX
                 
                 ultimo_anio = tabla_g.Anio.max()
-                media_actual = tabla_g[tabla_g['Anio'] == ultimo_anio ]['temperatura'].mean()
+                #media_actual = tabla_g[tabla_g['Anio'] == ultimo_anio ]['temperatura'].mean()
                     
-                kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
+                #kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
                 anio_maximo = df.Anio.max()
                 anio_minimo = df.Anio.min()
 
@@ -254,7 +254,7 @@ def main():
                                                             valor_actual= round(media_actual, 2), 
                                                             valor_objetivo= temperatura_limite,
                                                             unidad_medida= '°C',
-                                                            titulo= "Temperatura",
+                                                            titulo= "Temperatura 2021",
                                                             color= "rgb(252, 183, 20)"), use_container_width= True)
             #st.header("KPI's")
             #st.title("+ " + str(round((media_actual - media_siglo_XX), 2))+"°C")
@@ -262,10 +262,10 @@ def main():
             
 
      with col2:
-            st.header("Promedio Límite (°C)")
+            st.header("Límite 2030 (°C)")
             st.title(str(round(temperatura_limite,2)))
             st.header("")
-            st.header("Predicción año 2030 (°C)")
+            st.header("Predicción 2030 (°C)")
             st.title( "24.2 ± 0.3")
             
 

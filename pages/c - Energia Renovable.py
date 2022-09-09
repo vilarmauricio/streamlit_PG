@@ -152,7 +152,7 @@ def main():
                                                             valor_actual= round(promedio_ultimo_registro), 
                                                             valor_objetivo= 100,
                                                             unidad_medida= '%',
-                                                            titulo= "Energía Renovable",
+                                                            titulo= "Energía Renovable (2019)",
                                                             color= "rgb(192,142, 46)"), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
@@ -160,11 +160,11 @@ def main():
             
 
    with col2:
-            st.header("Porcentaje Objetivo")
-            st.title("100 %")
+            st.header("Objetivo 2030 (%)")
+            st.title("100")
             st.header("")
             
-            st.header("Predicción año 2030 (%)")
+            st.header("Predicción 2030 (%)")
             st.title( "21.8 ± 0.4")
 
    #with col3:
