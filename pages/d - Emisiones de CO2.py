@@ -204,24 +204,10 @@ def main():
         #fecha_tupla = st.slider('Seleccione Periodos',  min_value= lista_periodos[0], max_value= lista_periodos[-1], value= (lista_periodos[0], lista_periodos[-1]))
         with col_mapa:
         
-                st.subheader('Cantidad Emisiones CO2 - Paises (2019)')
-                selec_valores = st.selectbox("Valores a mostrar", options= ('Ultimo Registro', 'Inicio Periodo'))
-                if selec_valores == 'Ultimo Registro':
+                st.subheader('Cantidad Emisiones CO2')
+                figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "", "Pais")
+                st.plotly_chart(figura_mapa,  use_container_width=True)
                 
-                    figura_mapa = graficos.grafico_mapa_emisiones(df_ultima_observacion, 'Emisiones_de_CO2', "ISO", "", "Pais")
-                    st.plotly_chart(figura_mapa,  use_container_width=True)
-                
-                elif selec_valores == 'Inicio Periodo':
-                
-                    figura_mapa = graficos.grafico_mapa_emisiones(df_primer_observacion, 'Emisiones_de_CO2', "ISO", "", "Pais")
-                    st.plotly_chart(figura_mapa,  use_container_width=True)
-                
-                #elif selec_valores == 'Sumatoria Periodos':
-
-                 #   figura_mapa = graficos.grafico_mapa_emisiones(df_agrupacion_pais[df_agrupacion_pais['Anio'] == sel_fecha_fin], 'Emisiones_de_CO2', "ISO", "CO2", "Pais")
-                 #   st.plotly_chart(figura_mapa,  use_container_width=True)
-
-
         with col_grafico:
                 st.subheader('Compromisos Cumplidos')
                 figura_mapa_com = graficos.grafico_mapa_compromiso(dfb)
