@@ -35,7 +35,8 @@ def main():
      #lista_paises
    lista_paises_latinoamerica = sorted(df.Pais.unique())
    lista_paises_latinoamerica.remove('Canadá')
-
+   df = df.drop(df[df['Pais']=='Canadá'].index) 
+   
    df20 = df.filter(items=['Pais','ISO','Anio','proporcion_de_la_poblacion_con_acceso_a_elecricidad', 'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias'])
    prom = df20.loc[:,'proporcion_de_la_poblacion_con_acceso_a_elecricidad':'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias']
    df20['promedio'] = prom.mean(axis=1)
@@ -86,7 +87,7 @@ def main():
 
       
      # Hacemos los calculos
-   df = df.drop(df[df['Pais']=='Canadá'].index)
+   
    df['ISO']= df['Pais'].map({'Antigua y Barbuda':'ATG','Argentina':'ARG','Bahamas':'BHS','Barbados':'BRB','Belice':'BLZ',
                            'Bolivia':'BOL','Brasil':'BRA','Chile':'CHL','Colombia':'COL','Costa Rica':'CRI','Cuba':'CUB','Dominica':'DMA',
                            'Ecuador':'ECU','El Salvador':'SLV','Guatemala':'GTM','Guyana':'GUY','Haití':'HTI','Honduras':'HND',

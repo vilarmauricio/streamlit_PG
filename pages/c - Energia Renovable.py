@@ -3,6 +3,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 import lib.graficos as graficos 
+import lib.filtros as filtro
 
 st.set_page_config(
      page_title="KPI Energías Renovables",
@@ -34,6 +35,41 @@ def main():
      #lista_paises
    lista_paises_latinoamerica = sorted(df.Pais.unique())
    lista_paises_latinoamerica.remove('Canadá')
+   df = df.drop(df[df['Pais']=='Canadá'].index)
+
+     # KPI y metricas
+   # Calculos
+   df30 = df.filter(items=['Pais','ISO','Anio','proporcion_de_energias_renovables_del_total_consumido'])
+   
+   # Tabla grafico de linea generarl
+   tabla_g30 = df30.groupby('Anio').mean()
+   tabla_g30.reset_index(inplace=True)
+   
+   
+   anio_ultimo_registro = tabla_g30.Anio.max()
+   promedio_ultimo_registro = tabla_g30[tabla_g30['Anio'] == anio_ultimo_registro].proporcion_de_energias_renovables_del_total_consumido.values[0]
+
+   anio_maximo = df.Anio.max()
+   anio_minimo = df.Anio.min()
+   anio_inicio_kpi = 2015
+   sel_fecha_inicio = anio_inicio_kpi -15
+   sel_fecha_fin = anio_maximo
+    
+    
+   lista_periodos = filtro.lista_anios(df, 'Anio')
+   periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
+   if periodo == 'Predeterminado':
+        st.sidebar.write('Periodo predeterminado: ', sel_fecha_inicio, '-', lista_periodos[-1])
+    
+   elif periodo == 'Personalizado':
+        sel_fecha_fin = lista_periodos[-1]
+        lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+        sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+        lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
+        sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+
+   
+   df = df[(df['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
 
 
      # Seleccion paises
@@ -56,7 +92,7 @@ def main():
    with col_titulo:
          st.image('./images/titulo_proporcion.png')
 
-   df = df.drop(df[df['Pais']=='Canadá'].index)
+   
    df['ISO']= df['Pais'].map({'Antigua y Barbuda':'ATG','Argentina':'ARG','Bahamas':'BHS','Barbados':'BRB','Belice':'BLZ',
                         'Bolivia':'BOL','Brasil':'BRA','Chile':'CHL','Colombia':'COL','Costa Rica':'CRI','Cuba':'CUB','Dominica':'DMA',
                         'Ecuador':'ECU','El Salvador':'SLV','Guatemala':'GTM','Guyana':'GUY','Haití':'HTI','Honduras':'HND',
@@ -65,6 +101,8 @@ def main():
                         'Uruguay':'URY','Venezuela':'VEN'})
 
   
+   
+        
         #filtro pais
    if region == 'Personalizado' and len(seleccion_paises)>0:
         df = df[df['Pais'].isin(seleccion_paises)]
@@ -96,9 +134,7 @@ def main():
    
    
 
-   # KPI y metricas
-   anio_ultimo_registro = tabla_g30.Anio.max()
-   promedio_ultimo_registro = tabla_g30[tabla_g30['Anio'] == anio_ultimo_registro].proporcion_de_energias_renovables_del_total_consumido.values[0]
+   
 
      
      # TARJETAS

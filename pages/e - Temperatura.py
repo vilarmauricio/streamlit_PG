@@ -4,6 +4,7 @@ import datetime as dt
 import numpy as np
 import lib.graficos as graficos 
 import plotly.graph_objects as go
+import lib.filtros as filtro
 
 st.set_page_config(
      page_title="KPI Temperaturas",
@@ -36,11 +37,14 @@ def main():
                               'KNA':'San Cristóbal y Nieves','VCT':'San Vicente y las Granadinas','LCA':'Santa Lucía','SUR':'Surinam','TTO':'Trinidad y Tobago',
                               'URY':'Uruguay','VEN':'Venezuela'})
      df = df.rename(columns={'year':'Anio', 'codigo': 'ISO'})
+     
+     
+     
      tabla_g = df.groupby('Anio', as_index= False).mean()
      tabla_g.reset_index(inplace=True)
 
      mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
-     
+
     # KPI y Metricas
 
      media_siglo_XX = mean_siglo_XX
@@ -51,8 +55,32 @@ def main():
         
      kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
 
-     df2 = df[((df['Anio'])==1901)]
-     df3 = df[((df['Anio'])==2021)]
+     anio_maximo = df.Anio.max()
+     anio_minimo = df.Anio.min()
+     anio_inicio_kpi = 1901
+     sel_fecha_inicio = anio_inicio_kpi
+     sel_fecha_fin = anio_maximo
+    
+    
+     lista_periodos = filtro.lista_anios(df, 'Anio')
+     periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
+     if periodo == 'Predeterminado':
+        st.sidebar.write('Periodo predeterminado: ', sel_fecha_inicio, '-', lista_periodos[-1])
+    
+     elif periodo == 'Personalizado':
+        sel_fecha_fin = lista_periodos[-1]
+        lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+        sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+        lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
+        sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+
+   
+     df = df[(df['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
+     anio_maximo = df.Anio.max()
+     anio_minimo = df.Anio.min()
+
+     df2 = df[((df['Anio'])== anio_minimo)]
+     df3 = df[((df['Anio'])== anio_maximo)]
      df4= pd.merge(df2,df3, on= ['Pais', 'ISO'])
 
      df4['diferencia'] = df4['temperatura_y']-df4['temperatura_x']
@@ -90,32 +118,32 @@ def main():
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
 
      if region == 'Personalizado' and len(seleccion_paises)>0:  #todo el proceso de vuelta
-                df = crear_dataframe('Temperatures.csv')
-                df['Pais']= df['codigo'].map({'ATG':'Antigua y Barbuda','ARG':'Argentina','BHS':'Bahamas','BRB':'Barbados','BLZ':'Belice',
-                                        'BOL':'Bolivia','BRA':'Brasil','CAN':'Canadá','CHL':'Chile','COL':'Colombia','CRI':'Costa Rica','CUB':'Cuba','DMA':'Dominica',
-                                        'ECU':'Ecuador','USA':'Estados Unidos','SLV':'El Salvador','GTM':'Guatemala','GUY':'Guyana','HTI':'Haití','HND':'Honduras',
-                                        'JAM':'Jamaica','MEX':'México','NIC':'Nicaragua','PAN':'Panamá','PRY':'Paraguay','PER':'Perú','DOM':'República Dominicana',
-                                        'KNA':'San Cristóbal y Nieves','VCT':'San Vicente y las Granadinas','LCA':'Santa Lucía','SUR':'Surinam','TTO':'Trinidad y Tobago',
-                                        'URY':'Uruguay','VEN':'Venezuela'})
+                
                 df = df[df['Pais'].isin(seleccion_paises)]
-                df = df.rename(columns={'year':'Anio', 'codigo': 'ISO'})
+                
+                
+                
                 tabla_g = df.groupby('Anio', as_index= False).mean()
                 tabla_g.reset_index(inplace=True)
 
-                mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
+                #mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
                 
                 # KPI y Metricas
 
-                media_siglo_XX = mean_siglo_XX
-                temperatura_limite = 1.5+mean_siglo_XX
+                #media_siglo_XX = mean_siglo_XX
+                #temperatura_limite = 1.5+mean_siglo_XX
                 
                 ultimo_anio = tabla_g.Anio.max()
                 media_actual = tabla_g[tabla_g['Anio'] == ultimo_anio ]['temperatura'].mean()
                     
                 kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
+                anio_maximo = df.Anio.max()
+                anio_minimo = df.Anio.min()
 
-                df2 = df[((df['Anio'])==1901)]
-                df3 = df[((df['Anio'])==2021)]
+                df2 = df[((df['Anio'])== anio_minimo)]
+                df3 = df[((df['Anio'])== anio_maximo)]
+
+                
                 df4= pd.merge(df2,df3, on= ['Pais', 'ISO'])
 
                 df4['diferencia'] = df4['temperatura_y']-df4['temperatura_x']
@@ -154,12 +182,6 @@ def main():
                             fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
                             fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
                             return fig
-
-
-
-
-
-
 
                 elif len(seleccion_paises)==2:
                      df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:2])]
