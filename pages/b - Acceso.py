@@ -185,8 +185,8 @@ def main():
             
 
    with col2:
-            st.header("Porcentaje Objetivo")
-            st.title("95 %")
+            st.header("Objetivo (%)")
+            st.title("95")
             st.header("")
             
             st.header("Prediccion (%)")

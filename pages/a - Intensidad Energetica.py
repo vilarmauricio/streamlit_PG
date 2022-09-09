@@ -143,7 +143,7 @@ def main():
           """
          <h1 style="color:white;background-color:rgb(243, 108, 37);padding: 2% 2% 2% 2%;border: solid #DCDCDC;border-radius: 10px;">Disminuir a la Mitad la Intensidad Energética del Año 2015 para el Año 2030</h1>
          """,unsafe_allow_html=True)
-         
+
      # TARJETAS
     col1, col2, col3 = st.columns(3)
 
@@ -154,7 +154,7 @@ def main():
                                                             valor_actual= round(ac_red,2), 
                                                             valor_objetivo= ob_red,
                                                             unidad_medida= '%',
-                                                            titulo= "Intensidad",
+                                                            titulo= "Reducción Intensidad",
                                                             color= "rgb(243, 108, 37)"), use_container_width= True)
             #st.header("KPI's")
             #st.title(str(round(objective_percent*100,2)) + " %")
@@ -164,14 +164,14 @@ def main():
 
     with col2:
                       
-            st.header("Objetivo Reducción")
+            st.header("Objetivo Reducción (MJ/USD)")
             st.title(str(round(ob_red,2)))
             st.header("")
-            st.header("Prediccion")
+            st.header("Prediccion (MJ/USD)")
             st.title("3.72 ± 0.07")
 
     with col3:
-            st.header("Reducción Último Registro")
+            st.header("Reducción Último Registro (MJ/USD)")
             st.title(str(round(ac_red,2)))
             
             
@@ -189,7 +189,7 @@ def main():
     with col_graf_2:
                 st.subheader('Cambios Intensidad Energética')
                 try:
-                    figura2 = graficos.grafico_linea_intensidad(df, 'Anio', 'Value', 'Años', 'Valores', arr_anios, val_2015, val_actual)
+                    figura2 = graficos.grafico_linea_intensidad(df, 'Anio', 'Value', 'Años', 'Intensidad Energética (MJ/USD)', arr_anios, val_2015, val_actual)
                     st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
