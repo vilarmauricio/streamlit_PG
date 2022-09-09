@@ -150,7 +150,7 @@ def main():
    col_graf_1, col_graf_2 = st.columns(2)
 
    with col_graf_1:
-               st.subheader('Proporción de la población ccon acceso a servicios energéticos asequibles, fiables y modernos en Latinoamerica')
+               st.subheader('Proporción de la población con acceso a los servicios')
                figura_mapa = graficos.grafico_mapa_acceso(df20, 'promedio', 'ISO', "", "Pais")
                st.plotly_chart(figura_mapa, use_container_width= True)
 
@@ -158,7 +158,7 @@ def main():
    with col_graf_2:
                 #st.subheader('Emisiones CO2 - Agrupacion Anual')
                 try:
-                    st.subheader('Proporción de la población de Latinoamerica con acceso a servicios energéticos asequibles, fiables y modernos')
+                    st.subheader('Proporción de la población con acceso a los servicios')
                     figura2 = graficos.grafico_linea_latinoamerica_acceso(tabla_g20, 'Anio', 'promedio', 'Año', 'Promedio')
                     st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
@@ -173,7 +173,7 @@ def main():
    with col_graf_3:
             
             #try:
-               st.subheader('Países con mayor proporción de la población con acceso a servicios energéticos asequibles, fiables y modernos')
+               st.subheader('Países con mayor proporción de la población con acceso a los servicios')
                
                figura_top = graficos.grafico_barras_colores_acceso(df_inicio2, df_ultimo2, str(anio_primer_registro_df20), str(anio_ultimo_registro_df20), 'Pais', 'Acceso Promedio (%)')
                # figura_top = graficos.grafico_barra_top_acceso(tabla_g21, 'Pais', 'promedio', 'Pais', 'Promedio')
@@ -185,7 +185,7 @@ def main():
    with col_graf_4:
            
             try:
-               st.subheader('Países con menor proporción de la población con acceso a servicios energéticos asequibles, fiables y modernos')           
+               st.subheader('Países con menor proporción de la población con acceso a los servicios')           
                figura_down = graficos.grafico_linea_comparativo_acceso(tabla_g24, columna_x= 'Anio', columna_y= 'promedio', color_categ='Pais', nombre_eje_x= 'Anio', nombre_eje_y= 'Promedio')
                st.plotly_chart(figura_down, use_container_width= True)
             except ValueError:
