@@ -3,6 +3,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 import lib.graficos as graficos 
+import lib.filtros as filtro
 
 st.set_page_config(
      page_title="KPI Acceso",
@@ -35,8 +36,44 @@ def main():
    lista_paises_latinoamerica = sorted(df.Pais.unique())
    lista_paises_latinoamerica.remove('Canadá')
 
+   df20 = df.filter(items=['Pais','ISO','Anio','proporcion_de_la_poblacion_con_acceso_a_elecricidad', 'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias'])
+   prom = df20.loc[:,'proporcion_de_la_poblacion_con_acceso_a_elecricidad':'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias']
+   df20['promedio'] = prom.mean(axis=1)
+   tabla_g20 = df20.groupby('Anio').mean()
+   tabla_g20.reset_index(inplace=True)
+   
+   #kpi y Metrica actual
+   anio_ultimo_registro = tabla_g20.Anio.max()
+   promedio_ultimo_registro = tabla_g20[tabla_g20['Anio'] == anio_ultimo_registro].promedio.values[0]
 
+
+   st.sidebar.write('Para una correcta visualización, utilizar modo "Light". (Menu derecho-superior/ Settings/ Theme Choose: Light)')
+    #listas
+
+   anio_maximo = df.Anio.max()
+   anio_minimo = df.Anio.min()
+   anio_inicio_kpi = 2015
+   sel_fecha_inicio = anio_inicio_kpi -15
+   sel_fecha_fin = anio_maximo
+    
+    
+   lista_periodos = filtro.lista_anios(df, 'Anio')
+   periodo = st.sidebar.radio("Seleccione Periodo", ('Predeterminado', 'Personalizado'))
+   if periodo == 'Predeterminado':
+        st.sidebar.write('Periodo predeterminado: ', sel_fecha_inicio, '-', lista_periodos[-1])
+    
+   elif periodo == 'Personalizado':
+        sel_fecha_fin = lista_periodos[-1]
+        lista_periodo_min = [x for x in range(lista_periodos[0], sel_fecha_fin+1)]
+        sel_fecha_inicio = st.sidebar.selectbox("Seleccionar Fecha Inicio", lista_periodo_min)
+        lista_periodo_max = [x for x in range(sel_fecha_inicio, lista_periodos[-1]+1)]
+        sel_fecha_fin = st.sidebar.selectbox("Seleccionar Fecha Fin", reversed(lista_periodo_max))
+
+   
+   df = df[(df['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
      # Seleccion paises
+   
+   
    region = st.sidebar.radio("Seleccione Region", ('Latinoamerica', 'Personalizado'))
 
    if region == 'Latinoamerica':
@@ -111,9 +148,7 @@ def main():
    tabla_g24 = df23
    tabla_g24.reset_index(inplace=True)
 
-   #kpi y Metrica actual
-   anio_ultimo_registro = tabla_g20.Anio.max()
-   promedio_ultimo_registro = tabla_g20[tabla_g20['Anio'] == anio_ultimo_registro].promedio.values[0]
+   
 
 
    # Titulo
