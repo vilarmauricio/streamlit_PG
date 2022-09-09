@@ -493,8 +493,8 @@ def grafico_temp_barra(df, columna_x, columna_y):
                         margin={"r":0,"t":0,"l":0,"b":0},
                         
                         )
-        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
-        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
+        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)', title_text = 'Pais')
+        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)', title_text = 'Temp (°C)')
         return fig
 
 

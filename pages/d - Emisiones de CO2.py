@@ -195,7 +195,7 @@ def main():
                                                             valor_actual= round(kpi_cumplimiento), 
                                                             valor_objetivo= 100,
                                                             unidad_medida= '%',
-                                                            titulo= "Porc. Cumplimiento",
+                                                            titulo= "Porc. Cumplimiento Paises",
                                                             color= '#407F46'), use_container_width= True)
             
             

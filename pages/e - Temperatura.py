@@ -238,7 +238,7 @@ def main():
      #Contenedor
      #with st.container():
         #Columnas
-     col1, col2, col3 = st.columns(3)
+     col1, col2 = st.columns(2)
 
      with col1:
             #st.plotly_chart(graficos.indicador_kpi_acceso(mean_siglo_XX, temperatura_limite, media_actual, 'Temperatura'), use_container_width= True)
@@ -255,14 +255,16 @@ def main():
             
 
      with col2:
-            st.header("Temperatura Promedio Actual")
-
-            st.title(str(round(media_actual,2)) + "°C")
+            st.header("Promedio Límite (°C)")
+            st.title(str(round(temperatura_limite,2)))
+            st.header("")
+            st.header("Prediccion (°C)")
+            st.title( "24.2 ± 0.3")
             
 
-     with col3:
-            st.header("Temperatura Promedio Límite")
-            st.title(str(round(temperatura_limite,2)) + "°C")
+     #with col3:
+      #      st.header("Temperatura Promedio Límite")
+       #     st.title(str(round(temperatura_limite,2)) + "°C")
             
         
      col_mapa, col_grafico = st.columns(2)

@@ -138,7 +138,7 @@ def main():
 
      
      # TARJETAS
-   col1, col2, col3 = st.columns(3)
+   col1, col2 = st.columns(2)
 
    with col1:
             #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Energía renovable'), use_container_width= True)
@@ -155,14 +155,16 @@ def main():
             
 
    with col2:
-            st.header("Porcentaje Actual")
-
-            st.title( str(round(promedio_ultimo_registro)) +" %")
-            
-
-   with col3:
             st.header("Porcentaje Objetivo")
             st.title("100 %")
+            st.header("")
+            
+            st.header("Prediccion (%)")
+            st.title( "21.8 ± 0.4")
+
+   #with col3:
+    #        st.header("Porcentaje Objetivo")
+     #       st.title("100 %")
             
 
      # GRAFICOS CENTRALES   
@@ -178,7 +180,7 @@ def main():
                 st.subheader('Consumo Energía Renovable ')
                 try:
                     
-                    figura2 = graficos.grafico_linea_latinoamerica_renovables(tabla_g30, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido','Años', 'Prop Energía Renovable')
+                    figura2 = graficos.grafico_linea_latinoamerica_renovables(tabla_g30, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido','Años', 'Prop Energía Renovable (%)')
                     st.plotly_chart(figura2, use_container_width= True)
                 except ValueError:
                     st.error("Seleccionar por lo menos 1 (uno) Pais")
@@ -196,7 +198,7 @@ def main():
                opciones_mayor = st.slider('Seleccionar Cantidad de Paises Top', 3, 5, 3)
                #opciones_mayor = opciones_mayor-1
                df32 = df30[df30.Pais.isin(lista_pais_mayor_proporcion_renovable[:opciones_mayor])]
-               figura_top = graficos.grafico_linea_comparativo_renovables(df32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables')
+               figura_top = graficos.grafico_linea_comparativo_renovables(df32, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energias Renovables (%)')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
@@ -208,7 +210,7 @@ def main():
                opciones_menor = st.slider('Seleccionar Cantidad de Paises Down', 3, 5, 3)
                df34 = df30[df30.Pais.isin(lista_pais_menor_proporcion_renovable[:opciones_menor])]
                                   
-               figura_top = graficos.grafico_linea_comparativo_renovables(df34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energías Renovables')
+               figura_top = graficos.grafico_linea_comparativo_renovables(df34, 'Anio', 'proporcion_de_energias_renovables_del_total_consumido', 'Pais', 'Anio', 'Prop. Energías Renovables (%)')
                st.plotly_chart(figura_top, use_container_width= True)
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
