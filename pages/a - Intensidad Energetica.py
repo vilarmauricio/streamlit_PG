@@ -129,9 +129,10 @@ def main():
 
     with col2:
             st.header("Reduccion ultimo Registro")
-
             st.title(str(round(ac_red,2)))
             
+            st.header("Objetivo Reduccion")
+            st.title(str(round(ob_red,2)))
 
     with col3:
             st.header("Objetivo Reduccion")

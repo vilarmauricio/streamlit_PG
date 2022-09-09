@@ -849,7 +849,8 @@ def grafico_mapa_intensidad(df, nombre_columna_color, columna_locacion, nombre_e
                     #PARA QUE SE VEA MEJOR LA DIFERENCIA ENTRE ESTADOS UNIDOS Y LOS OTROS PAÍSES, SI QUERÉS SIGO BUSCANDO OTRAS
                     # ESCALAS DE COLORES    
                     hover_name= df['Pais'],        
-                    labels={ "color": nombre_escala,"locations": nombre_locacion})#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
+                    labels={ "color": nombre_escala,"locations": nombre_locacion},
+                    range_color= [0,5])#PUSE CO2 PORQUE ES CORTO, ESTO TRAE LAS ETIQUETAS CUANDO TE POSAS
                     #PERO TAMBIÉN ES EL TÍTULO DE LA BARRA DE COLORES. LO CORRECTO SERÍA PONER EMISIONES CO2 PERO ERA MUY LARGO
 
         fig.update_layout(
