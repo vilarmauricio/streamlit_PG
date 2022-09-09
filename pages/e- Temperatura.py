@@ -73,10 +73,7 @@ def main():
      df_mapa = df4.sort_values(by= 'diferencia', ascending= False)
 
 
-     with st.sidebar:
-        st.button('Introduccion')
-        #st.button('Hoja 1')
-        #st.button('hoja 2')
+     
 
      #lista_paises = sorted(df.Pais.unique())
      lista_paises_latinoamerica = sorted(df.Pais.unique())
@@ -91,6 +88,120 @@ def main():
         #seleccion_paises = lista_paises
      elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises_latinoamerica)
+
+     if region == 'Personalizado' and len(seleccion_paises)>0:  #todo el proceso de vuelta
+                df = crear_dataframe('Temperatures.csv')
+                df['Pais']= df['codigo'].map({'ATG':'Antigua y Barbuda','ARG':'Argentina','BHS':'Bahamas','BRB':'Barbados','BLZ':'Belice',
+                                        'BOL':'Bolivia','BRA':'Brasil','CAN':'Canadá','CHL':'Chile','COL':'Colombia','CRI':'Costa Rica','CUB':'Cuba','DMA':'Dominica',
+                                        'ECU':'Ecuador','USA':'Estados Unidos','SLV':'El Salvador','GTM':'Guatemala','GUY':'Guyana','HTI':'Haití','HND':'Honduras',
+                                        'JAM':'Jamaica','MEX':'México','NIC':'Nicaragua','PAN':'Panamá','PRY':'Paraguay','PER':'Perú','DOM':'República Dominicana',
+                                        'KNA':'San Cristóbal y Nieves','VCT':'San Vicente y las Granadinas','LCA':'Santa Lucía','SUR':'Surinam','TTO':'Trinidad y Tobago',
+                                        'URY':'Uruguay','VEN':'Venezuela'})
+                df = df[df['Pais'].isin(seleccion_paises)]
+                df = df.rename(columns={'year':'Anio', 'codigo': 'ISO'})
+                tabla_g = df.groupby('Anio', as_index= False).mean()
+                tabla_g.reset_index(inplace=True)
+
+                mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
+                
+                # KPI y Metricas
+
+                media_siglo_XX = mean_siglo_XX
+                temperatura_limite = 1.5+mean_siglo_XX
+                
+                ultimo_anio = tabla_g.Anio.max()
+                media_actual = tabla_g[tabla_g['Anio'] == ultimo_anio ]['temperatura'].mean()
+                    
+                kpi_estado = ((media_actual - media_siglo_XX)/ (temperatura_limite - media_siglo_XX))*100
+
+                df2 = df[((df['Anio'])==1901)]
+                df3 = df[((df['Anio'])==2021)]
+                df4= pd.merge(df2,df3, on= ['Pais', 'ISO'])
+
+                df4['diferencia'] = df4['temperatura_y']-df4['temperatura_x']
+                tabla_g2 = df4.sort_values(by= 'diferencia', ascending= False).head(5)
+                tabla_g2.reset_index(inplace=True, drop=True)
+
+                tabla_g4 = df4.sort_values(by= 'diferencia', ascending= True).head(5)
+                tabla_g4.reset_index(inplace=True)
+
+                # Tablas para grafico de linea comparativo
+                lista_pais_mayor_aumento = tabla_g2.Pais.unique()
+                if len(seleccion_paises)==1:
+                    df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:1])]
+                    t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
+                    #grafico
+                    def grafico_temp_linea_comparativo_1(t_3_1):
+                            fig = go.Figure()
+                            fig.add_trace(go.Scatter(x = t_3_1['Anio'], y = t_3_1['temperatura'], mode='lines', name = t_3_1['Pais'].values[0]))
+                            fig.update_layout(
+                        #title = 'Países con más aumento de temperatura',
+                        paper_bgcolor= 'rgba(0,0,0,0)',
+                        plot_bgcolor= '#EAEAEA',
+                        title_font_color= 'rgb(252, 183, 20)',
+                        font_color= 'rgb(252, 183, 20)',
+                        #width=1000,
+                        #height=500
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size= 18,
+                                #color="#ffffff"
+                                ),
+                        
+                        title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                        )
+                            fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
+                            fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
+                            return fig
+
+
+
+
+
+
+
+                elif len(seleccion_paises)==2:
+                     df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:2])]
+                     t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
+                     t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
+
+
+                     def grafico_temp_linea_comparativo_1(t_3_1,t_3_2):
+                            fig = go.Figure()
+                            fig.add_trace(go.Scatter(x = t_3_1['Anio'], y = t_3_1['temperatura'], mode='lines', name = t_3_1['Pais'].values[0]))
+                            fig.add_trace(go.Scatter(x = t_3_2['Anio'], y = t_3_2['temperatura'],  mode='lines',                      name = t_3_2['Pais'].values[0]))
+                            fig.update_layout(
+                        #title = 'Países con más aumento de temperatura',
+                        paper_bgcolor= 'rgba(0,0,0,0)',
+                        plot_bgcolor= '#EAEAEA',
+                        title_font_color= 'rgb(252, 183, 20)',
+                        font_color= 'rgb(252, 183, 20)',
+                        #width=1000,
+                        #height=500
+                        font=dict(
+                                #family="Courier New, monospace",
+                                size= 18,
+                                #color="#ffffff"
+                                ),
+                        
+                        title_x = 0.5,
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                        )
+                            fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
+                            fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
+                            return fig
+                else:
+                    df5 =df[df.Pais.isin(lista_pais_mayor_aumento[:3])]
+                    t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
+                    t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
+                    t_3_3 = df5[df5['Pais'] == lista_pais_mayor_aumento[2]]
+
+                #tabla mapa cromatico
+                df_mapa = df4.sort_values(by= 'diferencia', ascending= False)
+
+
+
 
 
     # Titulo
@@ -156,9 +267,18 @@ def main():
      with col_top:
             
             try:
-                st.subheader("Paises con mayor aumento de Temperatura")      
-                figura_top = graficos.grafico_temp_linea_comparativo(t_3_1, t_3_2, t_3_3)
-                st.plotly_chart(figura_top,  use_container_width=True)
+                st.subheader("Paises con mayor aumento de Temperatura")   
+
+                if len(seleccion_paises)==1:
+                    st.plotly_chart(grafico_temp_linea_comparativo_1(t_3_1),use_container_width=True)
+                
+                elif len(seleccion_paises)==2:
+                    st.plotly_chart(grafico_temp_linea_comparativo_1(t_3_1,t_3_2),use_container_width=True)
+
+                else:
+                        figura_top = graficos.grafico_temp_linea_comparativo(t_3_1, t_3_2, t_3_3)
+                        st.plotly_chart(figura_top,  use_container_width=True)
+            
             except ValueError:
                 st.error("Seleccionar por lo menos 1 (uno) Pais")
         

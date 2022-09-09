@@ -41,6 +41,7 @@ def main():
     
      #lista_paises
     lista_paises_latinoamerica = sorted(tabla.Pais.unique())
+    lista_paises_latinoamerica.remove('Canadá')
 
 
      # Seleccion paises
@@ -55,7 +56,17 @@ def main():
    
     #st.image('./images/ComisionLat1.png')
 
+             #FILTRO DE PAISES
+    if region == 'Personalizado' and len(seleccion_paises)>0:
+        tabla = crear_dataframe('./dataset/datos_ONU.csv')
+        df_paises = crear_dataframe('./dataset/Paises.csv')
+        df = tabla[['Pais','Anio','intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI']].copy()
+        df = df[df['Pais'].isin(seleccion_paises)]
+        df.rename(columns={'intensidad_energetica_medida_en_terminos_de_energia_primaria_y_PBI':'Value'}, inplace=True)
+        df = df.groupby('Anio').mean().reset_index()
 
+        tabla = tabla[tabla['Pais'].isin(seleccion_paises)]
+        
     # Calculos
     
 
@@ -131,7 +142,7 @@ def main():
     col_graf_1, col_graf_2 = st.columns(2)
 
     with col_graf_1:
-               st.subheader("Valor Intensidad Energetica Pais")
+               st.subheader("Intensidad Energetica Pais")
                
                figura_mapa = graficos.grafico_mapa_intensidad(df_por_pais, 'Value_2019', 'ISO', "", "Pais")
                st.plotly_chart(figura_mapa, use_container_width= True)

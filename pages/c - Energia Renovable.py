@@ -24,17 +24,6 @@ def crear_dataframe(nombre_archivo):
     df = pd.read_csv('./'+nombre_archivo)
     return df
 
-# Colores Graficos
-color_fuente_graf = '#FFFFFF'
-color_fuente_titulo_graf = '#FFFFFF'
-color_fondo_graf = 'silver'
-color_marco_graf = 'rgba(0,0,0,0)'
-color_dibujo_graf = '#FDC30C'
-color_dibujo_graf_secundario = '#A37C01'
-color_escala_mapa = 'solar_r'
-
-transp = 'rgba(0,0,0,0)' 
-
 
 def main():
 
@@ -44,6 +33,7 @@ def main():
     
      #lista_paises
    lista_paises_latinoamerica = sorted(df.Pais.unique())
+   lista_paises_latinoamerica.remove('Canadá')
 
 
      # Seleccion paises
@@ -73,6 +63,11 @@ def main():
                         'Jamaica':'JAM','México':'MEX','Nicaragua':'NIC','Panamá':'PAN','Paraguay':'PRY','Perú':'PER','República Dominicana':'DOM',
                         'San Cristóbal y Nieves':'KNA','San Vicente y las Granadinas':'VCT','Santa Lucía':'LCA','Surinam':'SUR','Trinidad y Tobago':'TTO',
                         'Uruguay':'URY','Venezuela':'VEN'})
+
+  
+        #filtro pais
+   if region == 'Personalizado' and len(seleccion_paises)>0:
+        df = df[df['Pais'].isin(seleccion_paises)]
 
    # Calculos
    df30 = df.filter(items=['Pais','ISO','Anio','proporcion_de_energias_renovables_del_total_consumido'])

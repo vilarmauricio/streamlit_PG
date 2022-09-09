@@ -207,7 +207,7 @@ def grafico_mapa_compromiso(dfb):
 
 #Colores Graficos
 #Colores graficos
-color_fuente_graf_emisiones = '#407F46'
+color_fuente_graf_emisiones = '#000000'
 color_fuente_titulo_graf_emisiones = '#407F46'
 color_fondo_graf_emisiones = '#EAEAEA'
 color_marco_graf_emisiones = '#FFFFFF'
@@ -328,7 +328,7 @@ def grafico_barras_emisiones(df, nombre_columna_x, nombre_columna_y, nombre_eje_
 # Graficos  especificos KPI Temperatura
 
 # Colores Graficos
-color_fuente_graf_tem = 'rgb(252, 183, 20)'
+color_fuente_graf_tem = '#000000'
 color_fuente_titulo_graf_tem = 'rgb(252, 183, 20)'
 color_fondo_graf_tem = '#EAEAEA'
 color_marco_graf_tem = 'rgba(0,0,0,0)'
@@ -413,10 +413,10 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
     
     fig.update_layout(
         #title = titulo,
-        paper_bgcolor=color_marco_graf_tem,
-        plot_bgcolor=color_fondo_graf_tem,
-        title_font_color=color_fuente_titulo_graf_tem,
-        font_color=color_fuente_graf_tem,
+        paper_bgcolor = color_marco_graf_tem,
+        plot_bgcolor = color_fondo_graf_tem,
+        title_font_color =  color_fuente_titulo_graf_tem,
+        font_color = color_fuente_graf_tem,
         #width=1000,
         #height=500,
         font=dict(
@@ -428,7 +428,7 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
         margin={"r":0,"t":0,"l":0,"b":0},
         )
     
-    fig.update_xaxes(showline=True, linewidth=3, linecolor='#FFFFFF',gridcolor='rgba(255,255,255,0.5)', title_text = nombre_eje_x)
+    fig.update_xaxes(showline=True, linewidth=0, linecolor='#FFFFFF',gridcolor= None, title_text = nombre_eje_x)
     fig.update_yaxes(showline=True, linewidth=3, linecolor='#FFFFFF',gridcolor='rgba(255,255,255,0.5)', title_text = nombre_eje_y)
     
     return fig
@@ -436,9 +436,9 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
 
 def grafico_temp_linea_comparativo(df1, df2, df3):
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x = df2['Anio'], y = df2['temperatura'], mode='lines',         line={'dash':'dot'}, name = 'Cuba'))
-        fig.add_trace(go.Scatter(x = df1['Anio'], y = df1['temperatura'], mode='lines+markers',                      name = 'Bahamas'))
-        fig.add_trace(go.Scatter(x = df3['Anio'], y = df3['temperatura'], mode='lines',                              name = 'México'))
+        fig.add_trace(go.Scatter(x = df1['Anio'], y = df1['temperatura'], mode='lines', name = df1['Pais'].values[0]))
+        fig.add_trace(go.Scatter(x = df2['Anio'], y = df2['temperatura'], mode='lines', name = df2['Pais'].values[0]))
+        fig.add_trace(go.Scatter(x = df3['Anio'], y = df3['temperatura'], mode='lines', name = df3['Pais'].values[0]))
         fig.update_layout(
                         #title = 'Países con más aumento de temperatura',
                         paper_bgcolor= color_marco_graf_tem,
@@ -456,14 +456,17 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
                         title_x = 0.5,
                         margin={"r":0,"t":0,"l":0,"b":0},
                         )
-        fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)')
-        fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)')
+        fig.update_xaxes(showline=False, linewidth=3, linecolor='#FFFFFF', title_text = 'Año')
+        fig.update_yaxes(showline=True, linewidth=3, linecolor='#FFFFFF',gridcolor='rgba(255,255,255,0.5)', title_text = 'Temp (°C)')
         return fig
 
 
 def grafico_temp_barra(df, columna_x, columna_y):
         fig = go.Figure()
-        fig.add_trace(go.Bar(x=df[columna_x], y = df[columna_y], marker={'color':color_dibujo_graf_tem}))
+        fig.add_trace(go.Bar(x=df[columna_x], y = df[columna_y], 
+                                #marker={'color':color_dibujo_graf_tem}
+                                )
+                        )
         fig.update_layout(
                         #title = 'Top Países con menos aumento de temperatura entre 1901 y 2021',
                         paper_bgcolor= color_marco_graf_tem,
@@ -493,7 +496,7 @@ def grafico_temp_barra(df, columna_x, columna_y):
 color_marco_graf_acceso = "#FFFFFF"
 color_fondo_graf_acceso = '#EAEAEA'
 color_fuente_titulo_graf_acceso = "#E5233D"
-color_fuente_graf_acceso = "#E5233D"
+color_fuente_graf_acceso = "#000000"
 color_escala_mapa_acceso = "Reds"
 
 def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
@@ -565,6 +568,13 @@ def grafico_barras_colores_acceso(df_inicio, df_ultimo, anio_inicio, anio_ultimo
                  name=anio_ultimo,
                 marker_color='lightsalmon',
         ))
+        fig.update_layout(
+                font=dict(
+                                #family="Courier New, monospace",
+                                size= tamaño_fuente_graficos,
+                                #color="#ffffff"
+                                ),
+        )
         fig.update_yaxes(gridcolor='rgba(255,255,255,0.5)',
                             title_text= nombre_eje_y, range= [90,99])
         fig.update_xaxes(gridcolor='rgba(255,255,255,0.5)',
@@ -665,7 +675,7 @@ def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, nombre_escal
 color_marco_graf_renovables = "#FFFFFF"
 color_fondo_graf_renovables = '#EAEAEA'
 color_fuente_titulo_graf_renovables = "rgb(192,142, 46)"
-color_fuente_graf_renovables = "rgb(192,142, 46)"
+color_fuente_graf_renovables = "#000000"
 color_escala_mapa_renovables = "BrBg"
 
 def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nombre_eje_x, nombre_eje_y):
@@ -817,7 +827,7 @@ def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, nombre_e
 color_marco_graf_intensidad = "#FFFFFF"
 color_fondo_graf_intensidad = '#EAEAEA'
 color_fuente_titulo_graf_intensidad = "rgb(243, 108, 37)"
-color_fuente_graf_intensidad = "rgb(243, 108, 37)"
+color_fuente_graf_intensidad = "#000000"
 color_escala_mapa_intensidad = "Reds" #ver color 
 
 def grafico_mapa_intensidad(df, nombre_columna_color, columna_locacion, nombre_escala, nombre_locacion ):

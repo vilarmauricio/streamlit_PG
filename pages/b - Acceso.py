@@ -23,16 +23,6 @@ def crear_dataframe(nombre_archivo):
     df = pd.read_csv('./'+nombre_archivo)
     return df
 
-# Colores Graficos
-color_fuente_graf = '#FFFFFF'
-color_fuente_titulo_graf = '#FFFFFF'
-color_fondo_graf = 'silver'
-color_marco_graf = 'rgba(0,0,0,0)'
-color_dibujo_graf = '#FDC30C'
-color_dibujo_graf_secundario = '#A37C01'
-color_escala_mapa = 'solar_r'
-
-transp = 'rgba(0,0,0,0)' 
 
 
 def main():
@@ -43,6 +33,7 @@ def main():
        
      #lista_paises
    lista_paises_latinoamerica = sorted(df.Pais.unique())
+   lista_paises_latinoamerica.remove('Canadá')
 
 
      # Seleccion paises
@@ -65,6 +56,13 @@ def main():
                            'Jamaica':'JAM','México':'MEX','Nicaragua':'NIC','Panamá':'PAN','Paraguay':'PRY','Perú':'PER','República Dominicana':'DOM',
                            'San Cristóbal y Nieves':'KNA','San Vicente y las Granadinas':'VCT','Santa Lucía':'LCA','Surinam':'SUR','Trinidad y Tobago':'TTO',
                            'Uruguay':'URY','Venezuela':'VEN'})
+
+
+   if region == 'Personalizado' and len(seleccion_paises)>0:
+        df = df[df['Pais'].isin(seleccion_paises)]
+
+
+
    df20 = df.filter(items=['Pais','ISO','Anio','proporcion_de_la_poblacion_con_acceso_a_elecricidad', 'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias'])
    prom = df20.loc[:,'proporcion_de_la_poblacion_con_acceso_a_elecricidad':'proporcion_de_la_poblacion_con_dependencia_primaria_a_energias_limpias']
    df20['promedio'] = prom.mean(axis=1)
@@ -127,10 +125,10 @@ def main():
             #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, promedio_ultimo_registro, 'Porcentaje Acceso'), use_container_width= True)
             st.plotly_chart(graficos.indicador_vel_positivo(min_valor= 0,
                                                             max_valor= 100,
-                                                            valor_actual= round(promedio_ultimo_registro), 
+                                                            valor_actual= round(promedio_ultimo_registro, 2), 
                                                             valor_objetivo= 95,
-                                                            unidad_medida= '%',
-                                                            titulo= "Accesso Poblacional",
+                                                            unidad_medida= 'Mill Tn',
+                                                            titulo= "Acceso (%)",
                                                             color= "rgb(225,40,72)"), use_container_width= True)
             #st.header("Progreso KPI's")
             #st.title("Calcular KPI")
