@@ -473,7 +473,7 @@ def grafico_temp_linea_comparativo(df1, df2, df3):
 def grafico_temp_barra(df, columna_x, columna_y):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=df[columna_x], y = df[columna_y], 
-                                #marker={'color':color_dibujo_graf_tem}
+                                marker={'color':'rgb(255, 191, 0)'}
                                 )
                         )
         fig.update_layout(
@@ -922,7 +922,10 @@ def grafico_barras_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje
         fig = px.bar(data_frame= df,
                         x= columna_x,
                         y = columna_y,
-                        #title= titulo,
+                        #title= titulo,)
+                )
+        fig.update_traces(marker_color='rgb(230, 77, 0)'        
+                        
                         )
         fig.update_layout(
                         paper_bgcolor= color_marco_graf_intensidad,
