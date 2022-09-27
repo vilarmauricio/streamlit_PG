@@ -207,7 +207,7 @@ def grafico_mapa_compromiso(dfb):
 
 
         fig.update_layout(
-                        height=600, 
+                        height=500, 
                         margin={"r":0,"t":0,"l":0,"b":0},
                         legend=dict(
                                 yanchor="top",
