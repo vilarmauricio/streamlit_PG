@@ -207,13 +207,13 @@ def grafico_mapa_compromiso(dfb):
 
 
         fig.update_layout(
-                        height=500, 
+                        #height=500, 
                         margin={"r":0,"t":0,"l":0,"b":0},
                         legend=dict(
                                 yanchor="top",
                                 y=0.95,
                                 xanchor="left",
-                                x=0.70)
+                                x=0.80)
                       )#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
         return fig        
 
@@ -269,7 +269,7 @@ def grafico_mapa_emisiones(df, nombre_columna_color, columna_locacion, nombre_es
                     )
 
             fig.update_layout(
-                    height=700, 
+                    #height=700, 
                     margin={"r":0,"t":0,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                     paper_bgcolor=color_marco_graf_emisiones,
                     plot_bgcolor=color_fondo_graf_emisiones,
