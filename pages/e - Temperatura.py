@@ -80,8 +80,10 @@ def main():
      anio_maximo = df.Anio.max()
      anio_minimo = df.Anio.min()
 
-     tabla_g = df.groupby('Anio', as_index= False).mean()
-     tabla_g.reset_index(inplace=True)
+     tabla_g = df.copy()
+     tabla_g['Decada'] = tabla_g['Anio'].floordiv(5).mul(5)
+     tabla_g = tabla_g[['Decada', 'temperatura']].groupby('Decada', as_index= False).mean()
+     tabla_g.rename(columns={'Decada' : 'Anio'}, inplace=True)
 
      df2 = df[((df['Anio'])== anio_minimo)]
      df3 = df[((df['Anio'])== anio_maximo)]
@@ -97,6 +99,9 @@ def main():
     # Tablas para grafico de linea comparativo
      lista_pais_mayor_aumento = tabla_g2.Pais.unique()
      df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:3])]
+     df5['Decada'] = df5['Anio'].floordiv(5).mul(5)
+     df5 = df5[['Decada', 'Pais', 'temperatura']].groupby(['Decada', 'Pais'], as_index= False).mean()
+     df5.rename(columns={'Decada' : 'Anio'}, inplace=True)
      t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
      t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
      t_3_3 = df5[df5['Pais'] == lista_pais_mayor_aumento[2]]
@@ -125,10 +130,10 @@ def main():
                 
                 df = df[df['Pais'].isin(seleccion_paises)]
                 
-                
-                
-                tabla_g = df.groupby('Anio', as_index= False).mean()
-                tabla_g.reset_index(inplace=True)
+                tabla_g = df.copy()
+                tabla_g['Decada'] = tabla_g['Anio'].floordiv(5).mul(5)
+                tabla_g = tabla_g[['Decada', 'temperatura']].groupby('Decada', as_index= False).mean()
+                tabla_g.rename(columns={'Decada' : 'Anio'}, inplace=True)
 
                 #mean_siglo_XX = tabla_g[tabla_g['Anio']<2001]['temperatura'].mean()
                 
@@ -161,6 +166,9 @@ def main():
                 lista_pais_mayor_aumento = tabla_g2.Pais.unique()
                 if len(seleccion_paises)==1:
                     df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:1])]
+                    df5['Decada'] = df5['Anio'].floordiv(5).mul(5)
+                    df5 = df5[['Decada', 'Pais', 'temperatura']].groupby(['Decada', 'Pais'], as_index= False).mean()
+                    df5.rename(columns={'Decada' : 'Anio'}, inplace=True)
                     t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
                     #grafico
                     def grafico_temp_linea_comparativo_1(t_3_1):
@@ -189,6 +197,9 @@ def main():
 
                 elif len(seleccion_paises)==2:
                      df5 = df[df.Pais.isin(lista_pais_mayor_aumento[:2])]
+                     df5['Decada'] = df5['Anio'].floordiv(5).mul(5)
+                     df5 = df5[['Decada', 'Pais', 'temperatura']].groupby(['Decada', 'Pais'], as_index= False).mean()
+                     df5.rename(columns={'Decada' : 'Anio'}, inplace=True)
                      t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
                      t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
 
@@ -219,6 +230,9 @@ def main():
                             return fig
                 else:
                     df5 =df[df.Pais.isin(lista_pais_mayor_aumento[:3])]
+                    df5['Decada'] = df5['Anio'].floordiv(5).mul(5)
+                    df5 = df5[['Decada', 'Pais', 'temperatura']].groupby(['Decada', 'Pais'], as_index= False).mean()
+                    df5.rename(columns={'Decada' : 'Anio'}, inplace=True)
                     t_3_1 = df5[df5['Pais'] == lista_pais_mayor_aumento[0]]
                     t_3_2 = df5[df5['Pais'] == lista_pais_mayor_aumento[1]]
                     t_3_3 = df5[df5['Pais'] == lista_pais_mayor_aumento[2]]

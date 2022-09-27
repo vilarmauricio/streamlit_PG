@@ -43,20 +43,20 @@ font-family: 'Noto Sans', sans-serif;
 
     /*Color st.header*/
     h2 {
-        font-size: xx-large;
+        font-size: x-large;
         color: rgb(243, 108, 37);
         
     }
     h3 {
-      font-size: xx-large;
+      font-size: x-large;
       color: rgb(243, 108, 37);
       
     }
-    /*h1 {
-      font-size: 50px;
-      color: rgb(243, 108, 37);
+    h1 {
+      font-size: 35px;
+      color: rgb(0, 0, 0);
       
-    }*/
+    }
     div[data-testid="stVerticalBlock"]{
       text-align: center;
 

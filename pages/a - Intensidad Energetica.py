@@ -145,7 +145,7 @@ def main():
          """,unsafe_allow_html=True)
 
      # TARJETAS
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     with col1:
             #st.plotly_chart(graficos.indicador_kpi_acceso(0, 100, round(ac_red,2), 'Porcentaje Intensidad' ), use_container_width= True)
@@ -170,9 +170,9 @@ def main():
             st.header("Predicción (2030) (MJ/USD)")
             st.title("3.72 ± 0.07")
 
-    with col3:
-            st.header("Reducción (2019) (MJ/USD)")
-            st.title(str(round(ac_red,2)))
+    #with col3:
+     #       st.header("Reducción (2019) (MJ/USD)")
+      #      st.title(str(round(ac_red,2)))
             
             
 
