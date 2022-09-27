@@ -203,12 +203,18 @@ def grafico_mapa_compromiso(dfb):
                 oceancolor='#eaeaea',
                 lakecolor='#eaeaea',
                 coastlinecolor='#dadada',
-            fitbounds="locations"))
+                fitbounds="locations"))
 
 
         fig.update_layout(
-                        #height=500, 
-                        margin={"r":0,"t":0,"l":0,"b":0})#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        height=600, 
+                        margin={"r":0,"t":0,"l":0,"b":0},
+                        legend=dict(
+                                yanchor="top",
+                                y=0.95,
+                                xanchor="left",
+                                x=0.80)
+                      )#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
         return fig        
 
 
@@ -263,8 +269,8 @@ def grafico_mapa_emisiones(df, nombre_columna_color, columna_locacion, nombre_es
                     )
 
             fig.update_layout(
-                    #height=500, 
-                    margin={"r":0,"t":50,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                    height=600, 
+                    margin={"r":0,"t":0,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                     paper_bgcolor=color_marco_graf_emisiones,
                     plot_bgcolor=color_fondo_graf_emisiones,
                     title_font_color=color_fuente_titulo_graf_emisiones,
@@ -290,7 +296,7 @@ def grafico_linea_emisiones(df, nombre_columna_x, nombre_columna_y, nombre_eje_x
                         title_font_color=color_fuente_titulo_graf_emisiones,
                         font_color=color_fuente_graf_emisiones,
                         #width=600, 
-                        #height=500,
+                        height=600,
                         #title= titulo,
                         font=dict(
                                 #family="Courier New, monospace",
@@ -378,7 +384,7 @@ def grafico_mapa_temperaturas(df, nombre_columna_color, columna_locacion, nombre
 
             fig.update_layout(
                     
-                    showlegend = False,
+                    showlegend = True,
                     geo = dict(
                         scope= 'world',
                         resolution=50,
@@ -400,15 +406,22 @@ def grafico_mapa_temperaturas(df, nombre_columna_color, columna_locacion, nombre
                     )
 
             fig.update_layout(
-                    #height=500, 
-                    margin={"r":0,"t":50,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                    height=600, 
+                    margin={"r":0,"t":0,"l":0,"b":0}, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                     paper_bgcolor=color_marco_graf_tem,
                     plot_bgcolor=color_fondo_graf_tem,
                     title_font_color=color_fuente_titulo_graf_tem,
                     font_color=color_fuente_graf_tem,
                     title_x = 0.5,
+                    legend=dict(
+                      yanchor="top",
+                      y=0.99,
+                      xanchor="left",
+                      x=0.01)
                     
             )
+           
+
             return fig
 
 
@@ -427,7 +440,7 @@ def grafico_linea_temperatura(df_tabla, df_promedios,nombre_columna_x, nombre_co
         title_font_color =  color_fuente_titulo_graf_tem,
         font_color = color_fuente_graf_tem,
         #width=1000,
-        #height=500,
+        height= 600,
         font=dict(
                   #family="Courier New, monospace",
                   size= tamaño_fuente_graficos,
@@ -520,7 +533,7 @@ def grafico_linea_latinoamerica_acceso(df_grafico, columna_x, columna_y, nombre_
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
                         #width=600,
-                        #height=500,
+                        height=600,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -663,7 +676,7 @@ def grafico_mapa_acceso(df, nombre_columna_color, columna_locacion, nombre_escal
                         title_font_color= color_fuente_titulo_graf_acceso,
                         font_color= color_fuente_graf_acceso,
                         #width=600,
-                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        height=600, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -699,7 +712,7 @@ def grafico_linea_latinoamerica_renovables(df_grafico, columna_x, columna_y, nom
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
                         #width=600,
-                        #height=500,
+                        height=600,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -815,7 +828,7 @@ def grafico_mapa_renovables(df, nombre_columna_color, columna_locacion, nombre_e
                         title_font_color= color_fuente_titulo_graf_renovables,
                         font_color= color_fuente_graf_renovables,
                         #width=600,
-                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        height=600, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -874,7 +887,7 @@ def grafico_mapa_intensidad(df, nombre_columna_color, columna_locacion, nombre_e
                         title_font_color= color_fuente_titulo_graf_intensidad,
                         font_color= color_fuente_graf_intensidad,
                         #width=600,
-                        #height=500, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
+                        height=600, #ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,
@@ -901,7 +914,7 @@ def grafico_linea_intensidad(df, columna_x, columna_y, nombre_eje_x, nombre_eje_
                         title_font_color= color_fuente_titulo_graf_intensidad,
                         font_color= color_fuente_graf_intensidad,
                         #width=600,
-                        #height=500,
+                        height=600,
                         font=dict(
                                 #family="Courier New, monospace",
                                 size= tamaño_fuente_graficos,

@@ -126,10 +126,11 @@ def main():
     elif region == 'Personalizado':
         seleccion_paises = st.sidebar.multiselect('Seleccion Paises', options= lista_paises)
 
-
+    dfb = dfb[dfb['Pais'].isin(seleccion_paises)]
     # Datos Grafico
     df = df_sin_america_del_norte[(df_sin_america_del_norte['Anio'] >= (sel_fecha_inicio)) & (df['Anio'] <= sel_fecha_fin)]
     df = df[df['Pais'].isin(seleccion_paises)]
+
     df_agrupacion_sum = df.groupby('Anio', as_index= False).sum()
     df_agrupacion_pais = df.groupby(['Anio','Pais'], as_index= False).mean()
     #df_agrupacion['Anio'] = pd.to_datetime(df_agrupacion['Anio'], format= '%Y')

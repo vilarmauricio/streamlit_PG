@@ -207,7 +207,7 @@ def main():
                      def grafico_temp_linea_comparativo_1(t_3_1,t_3_2):
                             fig = go.Figure()
                             fig.add_trace(go.Scatter(x = t_3_1['Anio'], y = t_3_1['temperatura'], mode='lines', name = t_3_1['Pais'].values[0]))
-                            fig.add_trace(go.Scatter(x = t_3_2['Anio'], y = t_3_2['temperatura'],  mode='lines',                      name = t_3_2['Pais'].values[0]))
+                            fig.add_trace(go.Scatter(x = t_3_2['Anio'], y = t_3_2['temperatura'],  mode='lines', name = t_3_2['Pais'].values[0]))
                             fig.update_layout(
                         #title = 'Países con más aumento de temperatura',
                         paper_bgcolor= 'rgba(0,0,0,0)',
