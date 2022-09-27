@@ -207,13 +207,13 @@ def grafico_mapa_compromiso(dfb):
 
 
         fig.update_layout(
-                        height=600, 
+                        height=500, 
                         margin={"r":0,"t":0,"l":0,"b":0},
                         legend=dict(
                                 yanchor="top",
                                 y=0.95,
                                 xanchor="left",
-                                x=0.80)
+                                x=0.70)
                       )#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
         return fig        
 
