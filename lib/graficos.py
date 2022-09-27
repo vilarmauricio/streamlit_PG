@@ -213,7 +213,7 @@ def grafico_mapa_compromiso(dfb):
                                 yanchor="top",
                                 y=0.95,
                                 xanchor="left",
-                                x=0.80)
+                                x=0.70)
                       )#ACÁ EN HEIGHT CAMBIAMOS EL TAMAÑO DEL MAPA.
         return fig        
 
